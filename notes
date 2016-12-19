@@ -1,0 +1,13 @@
+Na co zwrócić uwagę:
+- czas ma być łatwo podmienialny (wyodrębnienie klasy zegaraa)
+- łatwo podmienić strategię atakowania
+- wzorzec composite dla grupy bestii (czytanka?)
+- powtórzenie kodu damage, attack, etc (nie chcemy)
+- grupa bestii, wszędzie gdzie można wstawić jedną bestię, można wstawić grupę bestii (jakaś klasa, wirtualne metody)
+- nie chcemy wiele getterów, setterów wzajemnych zależności
+- nie chcemy zbyt wielu publicznych metod
+
+Dużo czasu na rozwiązanie zadania! ;) (12 stycznia)
+
+Oceny:
+- zgodność zawartości, ostrzeżenia przez kompilator, cosnt gdzie trzeba, virtual konstruktory gdzie trzeba, zarządzanie pamięcia 
