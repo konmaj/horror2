@@ -1,0 +1,4 @@
+#ifndef HORROR_CITIZEN_H
+#define HORROR_CITIZEN_H
+
+#endif //HORROR_CITIZEN_H
