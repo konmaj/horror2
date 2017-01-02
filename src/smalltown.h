@@ -4,15 +4,7 @@
 #include <tuple>
 #include "citizen.h"
 #include "monster.h"
-
-class GroupOfCitizens {
-public:
-
-    GroupOfCitizens() {}
-
-    size_t getAlive();
-};
-
+#include "helper.h"
 
 template<typename Monster, typename Time>
 class SmallTown {
