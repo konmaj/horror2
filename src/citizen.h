@@ -27,7 +27,7 @@ template<typename Age, typename HealthPoints, typename AttackPower>
 class Adult : public Citizen<Age, HealthPoints, AttackPower> {
 public:
 
-    Adult(HealthPoints healthPoints, Age age) : Citizen(healthPoints, age) {
+    Adult(HealthPoints healthPoints, Age age) : Citizen<Age, HealthPoints, AttackPower>(healthPoints, age) {
         assert(100 >= age && age >= 18);
     }
 };
@@ -36,7 +36,7 @@ template<typename Age, typename HealthPoints, typename AttackPower>
 class Teenager : public Citizen<Age, HealthPoints, AttackPower> {
 public:
 
-    Teenager(HealthPoints healthPoints, Age age) : Citizen(healthPoints, age) {
+    Teenager(HealthPoints healthPoints, Age age) : Citizen<Age, HealthPoints, AttackPower>(healthPoints, age) {
         assert(17 >= age && age >= 11);
     }
 };
@@ -47,8 +47,8 @@ class Sheriff : public Adult<Age, HealthPoints, AttackPower> {
 
 public:
 
-    Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower) : Adult(healthPoints, age),
-                                                                           attackPower(attackPower) {}
+    Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower) : Adult<Age, HealthPoints, AttackPower>(
+            healthPoints, age), attackPower(attackPower) {}
 
     AttackPower getAttackPower() { return attackPower; }
 };
