@@ -41,17 +41,9 @@ public:
 
     HealthPoints getHealth();
 
-    AttackPower getAttackPower() {
-        AttackPower power;
-        for (auto monster : monsters_)
-            power += monster.getAttackPower();
-        return power;
-    }
+    AttackPower getAttackPower();
 
-    void takeDamage(AttackPower damage) {
-        for (auto monster : monsters_)
-            monster.takeDamage(damage);
-    }
+    void takeDamage(AttackPower damage);
 };
 
 Zombie createZombie(HealthPoints health, AttackPower attackPower);
