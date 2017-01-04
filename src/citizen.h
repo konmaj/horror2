@@ -8,31 +8,34 @@
 using Age = int32_t;
 
 class Citizen : Living {
-  public:
+public:
     Citizen(HealthPoints healthPoints, Age age);
+
     Age getAge();
 
-  private:
+private:
     Age age_;
 };
 
 class Adult : public Citizen {
-  public:
+public:
     Adult(HealthPoints healthPoints, Age age);
 };
 
 class Teenager : public Citizen {
-  public:
+public:
     Teenager(HealthPoints healthPoints, Age age);
 };
 
 class Sheriff : public Citizen, public Attacking {
-  public:
+public:
     Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
 };
 
 Adult createAdult(HealthPoints healthPoints, Age age);
+
 Teenager createTeenager(HealthPoints healthPoints, Age age);
+
 Sheriff createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
 
 #endif //HORROR_CITIZEN_H

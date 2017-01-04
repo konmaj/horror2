@@ -1,8 +1,8 @@
-// Konrad Majewski, Mateusz Warzyñski
+// Konrad Majewski, Mateusz WarzyÅ„ski
 #include <cassert>
 #include "citizen.h"
 
-Citizen::Citizen(HealthPoints healthPoints, Age age) 
+Citizen::Citizen(HealthPoints healthPoints, Age age)
         : Living(healthPoints), age_(age) {}
 
 Age Citizen::getAge() {
@@ -13,7 +13,7 @@ Adult::Adult(HealthPoints healthPoints, Age age) : Citizen(healthPoints, age) {
     assert(18 <= age && age <= 100);
 }
 
-Teenager::Teenager(HealthPoints healthPoints, Age age) 
+Teenager::Teenager(HealthPoints healthPoints, Age age)
         : Citizen(healthPoints, age) {
     assert(11 <= age && age <= 17);
 }

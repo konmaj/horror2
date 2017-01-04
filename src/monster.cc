@@ -1,4 +1,4 @@
-// Konrad Majewski, Mateusz Warzyñski
+// Konrad Majewski, Mateusz WarzyÅ„ski
 #include "monster.h"
 
 Monster::Monster(HealthPoints healthPoints, AttackPower attackPower)

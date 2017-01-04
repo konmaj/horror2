@@ -11,13 +11,14 @@
 using Time = int32_t;
 
 class SmallTown {
-  public:
+public:
     class Builder;
-    
+
     std::tuple<std::string, HealthPoints, size_t> getStatus();
+
     void tick(Time timeStep);
 
-  private:
+private:
     Monster monster_;
     // TODO
     //GroupOfCitizens citizens_;

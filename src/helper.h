@@ -8,21 +8,24 @@ using HealthPoints = int32_t;
 using AttackPower = int32_t;
 
 class Living {
-  public:
+public:
     Living(HealthPoints healthPoints);
+
     HealthPoints getHealth();
+
     void takeDamage(AttackPower damage);
 
-  private:
+private:
     HealthPoints healthPoints_;
 };
 
 class Attacking {
-  public:
+public:
     Attacking(AttackPower attackPower);
+
     AttackPower getAttackPower();
 
-  private:
+private:
     AttackPower attackPower_;
 };
 

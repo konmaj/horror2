@@ -1,2 +1,2 @@
-// Konrad Majewski, Mateusz Warzyñski
+// Konrad Majewski, Mateusz WarzyÅ„ski
 #include "smalltown.h"

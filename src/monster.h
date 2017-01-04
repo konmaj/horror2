@@ -7,22 +7,22 @@
 #include "helper.h"
 
 class Monster : public Living, public Attacking {
-  public:
+public:
     Monster(HealthPoints healthPoints, AttackPower attackPower);
 };
 
 class Zombie : public Monster {
-  public:
+public:
     Zombie(HealthPoints healthPoints, AttackPower attackPower);
 };
 
 class Vampire : public Monster {
-  public:
+public:
     Vampire(HealthPoints healthPoints, AttackPower attackPower);
 };
 
 class Mummy : public Monster {
-  public:
+public:
     Mummy(HealthPoints healthPoints, AttackPower attackPower);
 };
 
@@ -56,7 +56,9 @@ class Mummy : public Monster {
 };*/
 
 Zombie createZombie(HealthPoints health, AttackPower attackPower);
+
 Vampire createVampire(HealthPoints health, AttackPower attackPower);
+
 Mummy createMummy(HealthPoints health, AttackPower attackPower);
 
 // TODO

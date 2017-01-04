@@ -1,4 +1,4 @@
-// Konrad Majewski, Mateusz Warzyñski
+// Konrad Majewski, Mateusz WarzyÅ„ski
 #include <cassert>
 #include "helper.h"
 
@@ -12,11 +12,10 @@ HealthPoints Living::getHealth() {
 
 void Living::takeDamage(AttackPower damage) {
     assert(damage >= 0);
-    
+
     if (healthPoints_ < damage) {
         healthPoints_ -= damage;
-    }
-    else {
+    } else {
         healthPoints_ = 0;
     }
 }
