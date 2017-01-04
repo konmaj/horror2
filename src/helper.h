@@ -1,15 +1,36 @@
+// Konrad Majewski, Mateusz Warzyński
 #ifndef HORROR_HELPER_H
 #define HORROR_HELPER_H
 
-// TODO: remove the lines below
-// GroupOfCitizens is here because it isn't a requirement (as GroupOfMonsters) - the goal is to make code cleaner in smalltown.
-// Feel free to move/delete it if you have a better idea.
-class GroupOfCitizens {
-public:
+#include <cstdint>
 
-    GroupOfCitizens() {}
+using HealthPoints = int32_t;
+using AttackPower = int32_t;
 
-    size_t getAlive();
+class Living {
+  public:
+    Living(HealthPoints healthPoints);
+    HealthPoints getHealth();
+    void takeDamage(AttackPower damage);
+
+  private:
+    HealthPoints healthPoints_;
 };
+
+class Attacking {
+  public:
+    Attacking(AttackPower attackPower);
+    AttackPower getAttackPower();
+
+  private:
+    AttackPower attackPower_;
+};
+
+// This may be useful, but I am not sure, which header file this class should be in.
+/*class GroupOfCitizens {
+  public:
+    GroupOfCitizens();
+    size_t getAlive();
+};*/
 
 #endif //HORROR_HELPER_H
