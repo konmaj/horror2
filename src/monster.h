@@ -8,21 +8,25 @@
 
 class Monster : public Living, public Attacking {
 public:
+
     Monster(HealthPoints healthPoints, AttackPower attackPower);
 };
 
 class Zombie : public Monster {
 public:
+
     Zombie(HealthPoints healthPoints, AttackPower attackPower);
 };
 
 class Vampire : public Monster {
 public:
+
     Vampire(HealthPoints healthPoints, AttackPower attackPower);
 };
 
 class Mummy : public Monster {
 public:
+
     Mummy(HealthPoints healthPoints, AttackPower attackPower);
 };
 

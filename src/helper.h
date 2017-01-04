@@ -9,6 +9,7 @@ using AttackPower = int32_t;
 
 class Living {
 public:
+
     Living(HealthPoints healthPoints);
 
     HealthPoints getHealth();
@@ -16,16 +17,19 @@ public:
     void takeDamage(AttackPower damage);
 
 private:
+
     HealthPoints healthPoints_;
 };
 
 class Attacking {
 public:
+
     Attacking(AttackPower attackPower);
 
     AttackPower getAttackPower();
 
 private:
+
     AttackPower attackPower_;
 };
 
