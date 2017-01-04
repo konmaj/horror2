@@ -1,60 +1,36 @@
+// Konrad Majewski, Mateusz Warzyński
 #ifndef HORROR_MONSTER_H
 #define HORROR_MONSTER_H
 
 #include <vector>
+#include <initializer_list>
+#include "helper.h"
 
-template<typename HealthPoints, typename AttackPower>
-class Monster {
-    HealthPoints healthPoints;
-    AttackPower attackPower;
-
-public:
-
-    Monster(HealthPoints healthPoints, AttackPower attackPower) : healthPoints(healthPoints),
-                                                                  attackPower(attackPower) {};
-
-    HealthPoints getHealth() { return healthPoints; }
-
-    AttackPower getAttackPower() { return attackPower; }
-
-    void takeDamage(AttackPower damage) {
-        healthPoints -= damage;
-        if (healthPoints < 0)
-            healthPoints = 0;
-    }
+class Monster : public Living, public Attacking {
+  public:
+    Monster(HealthPoints healthPoints, AttackPower attackPower);
 };
 
-template<typename HealthPoints, typename AttackPower>
-class Zombie : public Monster<HealthPoints, AttackPower> {
-public:
-
-    Zombie(HealthPoints healthPoints, AttackPower attackPower) : Monster<HealthPoints, AttackPower>(healthPoints,
-                                                                                                    attackPower) {}
+class Zombie : public Monster {
+  public:
+    Zombie(HealthPoints healthPoints, AttackPower attackPower);
 };
 
-template<typename HealthPoints, typename AttackPower>
-class Vampire : public Monster<HealthPoints, AttackPower> {
-public:
-
-    Vampire(HealthPoints healthPoints, AttackPower attackPower) : Monster<HealthPoints, AttackPower>(healthPoints,
-                                                                                                     attackPower) {}
+class Vampire : public Monster {
+  public:
+    Vampire(HealthPoints healthPoints, AttackPower attackPower);
 };
 
-template<typename HealthPoints, typename AttackPower>
-class Mummy : public Monster<HealthPoints, AttackPower> {
-public:
-
-    Mummy(HealthPoints healthPoints, AttackPower attackPower) : Monster<HealthPoints, AttackPower>(healthPoints,
-                                                                                                   attackPower) {}
+class Mummy : public Monster {
+  public:
+    Mummy(HealthPoints healthPoints, AttackPower attackPower);
 };
 
-template<typename HealthPoints, typename AttackPower>
-class GroupOfMonsters {
-    std::vector<Monster<HealthPoints, AttackPower>> monsters;
-
-public:
-
-    GroupOfMonsters(std::vector<Monster<HealthPoints, AttackPower>> monsters) : monsters(monsters) {}
+// TODO
+/*class GroupOfMonsters : public Monster {
+  public:
+    GroupOfMonsters(std::vector<Monster> monsters);
+    GroupOfMonsters(std::initializer_list<Monster> monsters);
 
     HealthPoints getHealth() {
         HealthPoints health;
@@ -71,11 +47,20 @@ public:
     }
 
     void takeDamage(AttackPower damage) {
-        for (auto monster : monsters)
+        for (auto monster : monsters_)
             monster.takeDamage(damage);
     }
-};
 
-// TODO: Dodatkowo powinny istnieć funkcje fabrykujące dla Zombie, Vampire, Mummy, GroupOfMonsters z sygnaturami pasującymi do przykładu.
+  private:
+    std::vector<Monster> monsters_;
+};*/
+
+Zombie createZombie(HealthPoints health, AttackPower attackPower);
+Vampire createVampire(HealthPoints health, AttackPower attackPower);
+Mummy createMummy(HealthPoints health, AttackPower attackPower);
+
+// TODO
+/*GroupOfMonsters createGroupOfMonsters(std::vector<Monster> monsters);
+GroupOfMonsters cerateGroupOfMOnsters(std::initializer_list<Monster> monsters); */
 
 #endif //HORROR_MONSTER_H
