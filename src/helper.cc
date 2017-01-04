@@ -12,12 +12,10 @@ HealthPoints Living::getHealth() {
 
 void Living::takeDamage(AttackPower damage) {
     assert(damage >= 0);
-
-    if (healthPoints_ < damage) {
+    if (healthPoints_ < damage)
         healthPoints_ -= damage;
-    } else {
+    else
         healthPoints_ = 0;
-    }
 }
 
 Attacking::Attacking(AttackPower attackPower) : attackPower_(attackPower) {

@@ -30,22 +30,20 @@ public:
     Mummy(HealthPoints healthPoints, AttackPower attackPower);
 };
 
-// TODO
-/*class GroupOfMonsters : public Monster {
-  public:
+class GroupOfMonsters : public Monster {
+    std::vector<Monster> monsters_;
+
+public:
+
     GroupOfMonsters(std::vector<Monster> monsters);
+
     GroupOfMonsters(std::initializer_list<Monster> monsters);
 
-    HealthPoints getHealth() {
-        HealthPoints health;
-        for (auto monster : monsters)
-            health += monster.getHealth();
-        return health;
-    }
+    HealthPoints getHealth();
 
     AttackPower getAttackPower() {
         AttackPower power;
-        for (auto monster : monsters)
+        for (auto monster : monsters_)
             power += monster.getAttackPower();
         return power;
     }
@@ -54,10 +52,7 @@ public:
         for (auto monster : monsters_)
             monster.takeDamage(damage);
     }
-
-  private:
-    std::vector<Monster> monsters_;
-};*/
+};
 
 Zombie createZombie(HealthPoints health, AttackPower attackPower);
 
@@ -65,8 +60,8 @@ Vampire createVampire(HealthPoints health, AttackPower attackPower);
 
 Mummy createMummy(HealthPoints health, AttackPower attackPower);
 
-// TODO
-/*GroupOfMonsters createGroupOfMonsters(std::vector<Monster> monsters);
-GroupOfMonsters cerateGroupOfMOnsters(std::initializer_list<Monster> monsters); */
+GroupOfMonsters createGroupOfMonsters(std::vector<Monster> monsters);
+
+GroupOfMonsters createGroupOfMonsters(std::initializer_list<Monster> monsters);
 
 #endif //HORROR_MONSTER_H
