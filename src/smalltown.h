@@ -14,15 +14,16 @@ class SmallTown {
   public:
     class Builder;
     
-    std::tuple<std::string, decltype(monster.getHealth()), size_t> getStatus();
+    std::tuple<std::string, HealthPoints, size_t> getStatus();
     void tick(Time timeStep);
 
   private:
     Monster monster_;
-    GroupOfCitizens citizens_;
+    // TODO
+    //GroupOfCitizens citizens_;
     Time time_;
 
-    SmallTown(Monster m, GroupOfCitizens c, Time t) : monster_(m), citizens_(c), time_(t) {}
+    //SmallTown(Monster m, GroupOfCitizens c, Time t) : monster_(m), citizens_(c), time_(t) {}
 };
 
 #endif //HORROR_SMALLTOWN_H
