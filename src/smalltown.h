@@ -1,40 +1,28 @@
+// Konrad Majewski, Mateusz Warzyński
 #ifndef HORROR_SMALLTOWN_H
 #define HORROR_SMALLTOWN_H
 
+#include <cstdint>
 #include <tuple>
 #include "citizen.h"
 #include "monster.h"
 #include "helper.h"
 
-template<typename Monster, typename Time>
+using Time = int32_t;
+
 class SmallTown {
-public:
-
+  public:
     class Builder;
-
-private:
-
-    Monster monster;
-    GroupOfCitizens citizens;
-    Time time;
-
-    SmallTown(Monster m, GroupOfCitizens c, Time t) : monster(m), citizens(c), time(t) {}
-
-public:
-
-    std::tuple<std::string, decltype(monster.getHealth()), size_t> getStatus() {
-        return std::make_tuple(monster.getName(), monster.getHealth(), citizens.getAlive());
-    }
-
+    
+    std::tuple<std::string, decltype(monster.getHealth()), size_t> getStatus();
     void tick(Time timeStep);
-};
 
+  private:
+    Monster monster_;
+    GroupOfCitizens citizens_;
+    Time time_;
 
-template<typename M, typename Time>
-class SmallTown<M, Time>::Builder {
-public:
-
-    SmallTown build();
+    SmallTown(Monster m, GroupOfCitizens c, Time t) : monster_(m), citizens_(c), time_(t) {}
 };
 
 #endif //HORROR_SMALLTOWN_H
