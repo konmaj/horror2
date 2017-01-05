@@ -10,7 +10,7 @@ public:
 
     Citizen(Age age, HealthPoints healthPoints, AttackPower attackPower);
 
-    Age getAge();
+    Age getAge() const;
 
 private:
 

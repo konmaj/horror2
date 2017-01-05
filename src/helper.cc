@@ -7,7 +7,7 @@ Living::Living(HealthPoints healthPoints) : healthPoints_(healthPoints) {
     assert(healthPoints >= 0);
 }
 
-HealthPoints Living::getHealth() {
+HealthPoints Living::getHealth() const {
     return healthPoints_;
 }
 
@@ -24,7 +24,7 @@ Attacking::Attacking(AttackPower attackPower) : attackPower_(attackPower) {
     assert(attackPower >= 0);
 }
 
-AttackPower Attacking::getAttackPower() {
+AttackPower Attacking::getAttackPower() const {
     return attackPower_;
 }
 

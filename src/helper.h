@@ -16,7 +16,7 @@ public:
 
     Living(HealthPoints healthPoints);
 
-    HealthPoints getHealth();
+    HealthPoints getHealth() const;
 
     void takeDamage(AttackPower damage);
 
@@ -32,7 +32,7 @@ public:
 
     Attacking(AttackPower attackPower);
 
-    AttackPower getAttackPower();
+    AttackPower getAttackPower() const;
 
 private:
 

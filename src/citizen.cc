@@ -5,7 +5,7 @@
 Citizen::Citizen(Age age, HealthPoints healthPoints, AttackPower attackPower)
         : Living(healthPoints), Attacking(attackPower), age_(age) {}
 
-Age Citizen::getAge() {
+Age Citizen::getAge() const {
     return age_;
 }
 
