@@ -7,6 +7,12 @@ include_directories(./src)
 
 set(SOURCE_FILES
         src/helper.cc
-        src/helper.h)
+        src/helper.h
+        src/citizen.cc
+        src/citizen.h
+        src/monster.cc
+        src/monster.h
+        src/smalltown.cc
+        src/smalltown.h)
 
 add_executable(test1 ./tests/test1.cpp ${SOURCE_FILES})

@@ -3,9 +3,12 @@
 #define HORROR_HELPER_H
 
 #include <cstdint>
+#include <cstddef>
+#include <vector>
 
 using HealthPoints = int32_t;
 using AttackPower = int32_t;
+using Time = int32_t;
 
 class Living {
 public:
@@ -15,6 +18,8 @@ public:
     HealthPoints getHealth();
 
     void takeDamage(AttackPower damage);
+
+    bool isAlive();
 
 private:
 
@@ -33,11 +38,20 @@ private:
     AttackPower attackPower_;
 };
 
-// This may be useful, but I am not sure, which header file this class should be in.
-/*class GroupOfCitizens {
-  public:
-    GroupOfCitizens();
-    size_t getAlive();
-};*/
+
+// TODO: we should rename AttackTime to something better
+class AttackTime {
+public:
+
+    virtual bool shouldAttack(Time time) = 0;
+};
+
+class HorrorAttackTime : public AttackTime {
+public:
+
+    HorrorAttackTime() {}
+
+    bool shouldAttack(Time time);
+};
 
 #endif //HORROR_HELPER_H

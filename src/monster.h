@@ -9,6 +9,8 @@
 class Monster : public Living, public Attacking {
 public:
 
+    Monster();
+
     Monster(HealthPoints healthPoints, AttackPower attackPower);
 };
 

@@ -18,10 +18,24 @@ void Living::takeDamage(AttackPower damage) {
         healthPoints_ = 0;
 }
 
+bool Living::isAlive() {
+    return healthPoints_ > 0;
+}
+
 Attacking::Attacking(AttackPower attackPower) : attackPower_(attackPower) {
     assert(attackPower >= 0);
 }
 
 AttackPower Attacking::getAttackPower() {
     return attackPower_;
+}
+
+bool HorrorAttackTime::shouldAttack(Time time) {
+    if (time % 3 != 0)
+        return false;
+    if (time % 13 != 0)
+        return false;
+    if (time % 7 == 0)
+        return false;
+    return true;
 }

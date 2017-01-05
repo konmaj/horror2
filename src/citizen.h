@@ -7,7 +7,7 @@
 
 using Age = int32_t;
 
-class Citizen : Living {
+class Citizen : public Living {
 public:
 
     Citizen(HealthPoints healthPoints, Age age);

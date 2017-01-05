@@ -8,7 +8,15 @@
 #include "monster.h"
 #include "helper.h"
 
-using Time = int32_t;
+class GroupOfCitizens {
+public:
+
+    GroupOfCitizens(std::vector<Citizen> citizens);
+
+    bool isAlive();
+
+    std::vector<Citizen> citizens_;
+};
 
 class SmallTown {
 public:
@@ -21,12 +29,48 @@ public:
 
 private:
 
-    Monster monster_;
-    // TODO
-    //GroupOfCitizens citizens_;
+    const Monster monster_;
+    const GroupOfCitizens citizens_;
     Time time_;
+    Time max_time_;
+    AttackTime *attack_time_;
 
-    //SmallTown(Monster m, GroupOfCitizens c, Time t) : monster_(m), citizens_(c), time_(t) {}
+    SmallTown(Monster m, GroupOfCitizens c, Time t, Time mt, AttackTime *at) : monster_(m), citizens_(c), time_(t),
+                                                                              max_time_(mt), attack_time_(at) {}
+
+    void performAttack();
+};
+
+class SmallTown::Builder {
+public:
+
+    Monster default_monster = Monster(0, 0);
+    std::vector<Citizen> default_citizens;
+    Time default_time = 0;
+    Time default_max_time = 0;
+    AttackTime *default_attack_time;
+
+    Builder();
+
+    Builder &setMonster(Monster monster);
+
+    Builder &setCitizens(std::vector<Citizen> citizens);
+
+    Builder &setStartTime(Time time);
+
+    Builder &setMaxTime(Time time);
+
+    Builder &setAttackTime(AttackTime *attackTime);
+
+    SmallTown build();
+
+private:
+
+    Monster monster_;
+    std::vector<Citizen> citizens_;
+    Time start_time_;
+    Time max_time_;
+    AttackTime *attack_time_;
 };
 
 #endif //HORROR_SMALLTOWN_H
