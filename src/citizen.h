@@ -5,12 +5,10 @@
 #include <cstdint>
 #include "helper.h"
 
-using Age = int32_t;
-
-class Citizen : public Living {
+class Citizen : public Living, public Attacking {
 public:
 
-    Citizen(HealthPoints healthPoints, Age age);
+    Citizen(Age age, HealthPoints healthPoints, AttackPower attackPower);
 
     Age getAge();
 
@@ -31,7 +29,7 @@ public:
     Teenager(HealthPoints healthPoints, Age age);
 };
 
-class Sheriff : public Citizen, public Attacking {
+class Sheriff : public Citizen {
 public:
 
     Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);

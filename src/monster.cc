@@ -11,31 +11,37 @@ Vampire::Vampire(HealthPoints healthPoints, AttackPower attackPower) : Monster(h
 
 Mummy::Mummy(HealthPoints healthPoints, AttackPower attackPower) : Monster(healthPoints, attackPower) {}
 
-GroupOfMonsters::GroupOfMonsters(std::initializer_list<Monster> monsters) {
-    // TODO: implement GroupOfMonsters(std::initializer_list<Monster> monsters)
-}
+GroupOfMonsters::GroupOfMonsters(std::initializer_list<Monster> monsters) : monsters_(monsters) {}
 
-GroupOfMonsters::GroupOfMonsters(std::vector<Monster> monsters) {
-    monsters_ = monsters;
-}
+GroupOfMonsters::GroupOfMonsters(std::vector<Monster> monsters) : monsters_(monsters) {}
 
 HealthPoints GroupOfMonsters::getHealth() {
-    HealthPoints health;
-    for (auto monster : monsters_)
+    HealthPoints health = 0;
+    for (auto &monster : monsters_)
         health += monster.getHealth();
     return health;
 }
 
 AttackPower GroupOfMonsters::getAttackPower()  {
-    AttackPower power;
-    for (auto monster : monsters_)
-        power += monster.getAttackPower();
+    AttackPower power = 0;
+    for (auto &monster : monsters_) {
+        if (monster.isAlive())
+            power += monster.getAttackPower();
+    }
     return power;
 }
 
 void GroupOfMonsters::takeDamage(AttackPower damage) {
-    for (auto monster : monsters_)
+    for (auto &monster : monsters_)
         monster.takeDamage(damage);
+}
+
+bool GroupOfMonsters::isAlive() {
+    for (auto &monster : monsters_) {
+        if (monster.isAlive())
+            return true;
+    }
+    return false;
 }
 
 Zombie createZombie(HealthPoints health, AttackPower attackPower) {

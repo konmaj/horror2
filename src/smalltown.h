@@ -2,11 +2,16 @@
 #ifndef HORROR_SMALLTOWN_H
 #define HORROR_SMALLTOWN_H
 
+#include <iostream>
 #include <cstdint>
 #include <tuple>
 #include "citizen.h"
 #include "monster.h"
 #include "helper.h"
+
+const std::string CITIZENS_WON = "CITIZENS WON";
+const std::string MONSTER_WON = "MONSTER WON";
+const std::string DRAW = "DRAW";
 
 class GroupOfCitizens {
 public:
@@ -15,7 +20,11 @@ public:
 
     bool isAlive();
 
-    std::vector<Citizen> citizens_;
+    AttackPower getAttackPower();
+
+    void takeDamage(AttackPower damage);
+
+    std::vector<Citizen> citizens;
 };
 
 class SmallTown {
@@ -29,8 +38,8 @@ public:
 
 private:
 
-    const Monster monster_;
-    const GroupOfCitizens citizens_;
+    Monster monster_;
+    GroupOfCitizens citizens_;
     Time time_;
     Time max_time_;
     AttackTime attack_time_;
@@ -38,7 +47,7 @@ private:
     SmallTown(Monster m, GroupOfCitizens c, Time t, Time mt, AttackTime at) : monster_(m), citizens_(c), time_(t),
                                                                               max_time_(mt), attack_time_(at) {}
 
-    void performAttack();
+    void checkState();
 };
 
 class SmallTown::Builder {

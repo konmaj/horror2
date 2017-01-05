@@ -46,6 +46,8 @@ public:
     AttackPower getAttackPower();
 
     void takeDamage(AttackPower damage);
+
+    bool isAlive();
 };
 
 Zombie createZombie(HealthPoints health, AttackPower attackPower);

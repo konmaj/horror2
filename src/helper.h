@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <vector>
 
+using Age = int32_t;
 using HealthPoints = int32_t;
 using AttackPower = int32_t;
 using Time = int32_t;
@@ -37,7 +38,6 @@ private:
 
     AttackPower attackPower_;
 };
-
 
 class AttackTime {
 public:

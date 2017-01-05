@@ -12,7 +12,7 @@ HealthPoints Living::getHealth() {
 
 void Living::takeDamage(AttackPower damage) {
     assert(damage >= 0);
-    if (healthPoints_ < damage)
+    if (healthPoints_ > damage)
         healthPoints_ -= damage;
     else
         healthPoints_ = 0;
@@ -31,11 +31,5 @@ AttackPower Attacking::getAttackPower() {
 }
 
 bool AttackTime::shouldAttack(Time time) {
-    if (time % 3 != 0)
-        return false;
-    if (time % 13 != 0)
-        return false;
-    if (time % 7 == 0)
-        return false;
-    return true;
+    return time % 3 == 0 && time % 13 == 0 && time % 7 != 0;
 }

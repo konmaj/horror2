@@ -1,14 +1,28 @@
 // Konrad Majewski, Mateusz Warzyński
 #include "smalltown.h"
 
-GroupOfCitizens::GroupOfCitizens(std::vector<Citizen> citizens) : citizens_(citizens) {}
+GroupOfCitizens::GroupOfCitizens(std::vector<Citizen> citizens) : citizens(citizens) {}
 
 bool GroupOfCitizens::isAlive() {
-    for (auto &c : citizens_) {
+    for (auto &c : citizens) {
         if (c.isAlive())
             return true;
     }
     return false;
+}
+
+AttackPower GroupOfCitizens::getAttackPower() {
+    AttackPower power = 0;
+    for (auto &c : citizens) {
+        if (c.isAlive())
+            power += c.getAttackPower();
+    }
+    return power;
+}
+
+void GroupOfCitizens::takeDamage(AttackPower damage) {
+    for (auto &c : citizens)
+        c.takeDamage(damage);
 }
 
 SmallTown::Builder::Builder() : monster_(default_monster), citizens_(default_citizens), start_time_(default_time),
@@ -55,11 +69,26 @@ std::tuple<std::string, HealthPoints, size_t> SmallTown::getStatus() {
 }
 
 void SmallTown::tick(Time timeStep) {
-    if (attack_time_.shouldAttack(time_))
-        performAttack();
+    checkState();
+    if (attack_time_.shouldAttack(time_)) {
+        citizens_.takeDamage(monster_.getAttackPower());
+        monster_.takeDamage(citizens_.getAttackPower());
+    }
     time_ += timeStep;
 }
 
-void SmallTown::performAttack() {
-    // TODO: implement SmallTown::performAttack()
+void SmallTown::checkState() {
+    bool monsterAlive = monster_.isAlive();
+    bool citizensAlive = citizens_.isAlive();
+    if (monsterAlive && citizensAlive)
+        return;
+    if (monsterAlive) {
+        std::cout << MONSTER_WON << std::endl;
+        return;
+    }
+    if (citizensAlive) {
+        std::cout << CITIZENS_WON << std::endl;
+        return;
+    }
+    std::cout << DRAW << std::endl;
 }
