@@ -1,4 +1,5 @@
-// Konrad Majewski, Mateusz Warzyński
+﻿// Konrad Majewski, Mateusz Warzyński
+#include <algorithm>
 #include <cassert>
 #include "helper.h"
 
@@ -12,10 +13,7 @@ HealthPoints Living::getHealth() {
 
 void Living::takeDamage(AttackPower damage) {
     assert(damage >= 0);
-    if (healthPoints_ > damage)
-        healthPoints_ -= damage;
-    else
-        healthPoints_ = 0;
+    healthPoints_ -= std::min(healthPoints_, static_cast<HealthPoints>(damage));
 }
 
 bool Living::isAlive() {

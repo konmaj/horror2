@@ -1,4 +1,4 @@
-// Konrad Majewski, Mateusz Warzyński
+﻿// Konrad Majewski, Mateusz Warzyński
 #include "smalltown.h"
 
 GroupOfCitizens::GroupOfCitizens(std::vector<Citizen> citizens) : citizens(citizens) {}

@@ -1,4 +1,4 @@
-// Konrad Majewski, Mateusz Warzyński
+﻿// Konrad Majewski, Mateusz Warzyński
 #ifndef HORROR_HELPER_H
 #define HORROR_HELPER_H
 

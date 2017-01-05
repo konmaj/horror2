@@ -1,4 +1,4 @@
-// Konrad Majewski, Mateusz Warzyński
+﻿// Konrad Majewski, Mateusz Warzyński
 #ifndef HORROR_CITIZEN_H
 #define HORROR_CITIZEN_H
 

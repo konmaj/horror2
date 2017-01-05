@@ -1,15 +1,19 @@
-// Konrad Majewski, Mateusz Warzyński
+﻿// Konrad Majewski, Mateusz Warzyński
 #include "monster.h"
 
 Monster::Monster() : Living(0), Attacking(0) {}
 
-Monster::Monster(HealthPoints healthPoints, AttackPower attackPower) : Living(healthPoints), Attacking(attackPower) {}
+Monster::Monster(HealthPoints healthPoints, AttackPower attackPower)
+        : Living(healthPoints), Attacking(attackPower) {}
 
-Zombie::Zombie(HealthPoints healthPoints, AttackPower attackPower) : Monster(healthPoints, attackPower) {}
+Zombie::Zombie(HealthPoints healthPoints, AttackPower attackPower)
+        : Monster(healthPoints, attackPower) {}
 
-Vampire::Vampire(HealthPoints healthPoints, AttackPower attackPower) : Monster(healthPoints, attackPower) {}
+Vampire::Vampire(HealthPoints healthPoints, AttackPower attackPower)
+        : Monster(healthPoints, attackPower) {}
 
-Mummy::Mummy(HealthPoints healthPoints, AttackPower attackPower) : Monster(healthPoints, attackPower) {}
+Mummy::Mummy(HealthPoints healthPoints, AttackPower attackPower)
+        : Monster(healthPoints, attackPower) {}
 
 GroupOfMonsters::GroupOfMonsters(std::initializer_list<Monster> monsters) : monsters_(monsters) {}
 
