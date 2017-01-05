@@ -65,6 +65,7 @@ SmallTown::Builder &SmallTown::Builder::setAttackTime(AttackTime attack_time) {
 }
 
 std::tuple<std::string, HealthPoints, size_t> SmallTown::getStatus() {
+    // TODO: implement SmallTown::getStatus()
     return std::make_tuple("", 0, 0);
 }
 
