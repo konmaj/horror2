@@ -30,7 +30,7 @@ AttackPower Attacking::getAttackPower() {
     return attackPower_;
 }
 
-bool HorrorAttackTime::shouldAttack(Time time) {
+bool AttackTime::shouldAttack(Time time) {
     if (time % 3 != 0)
         return false;
     if (time % 13 != 0)

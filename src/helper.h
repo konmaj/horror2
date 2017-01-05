@@ -39,17 +39,8 @@ private:
 };
 
 
-// TODO: we should rename AttackTime to something better
 class AttackTime {
 public:
-
-    virtual bool shouldAttack(Time time) = 0;
-};
-
-class HorrorAttackTime : public AttackTime {
-public:
-
-    HorrorAttackTime() {}
 
     bool shouldAttack(Time time);
 };
