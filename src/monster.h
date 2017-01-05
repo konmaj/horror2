@@ -41,13 +41,11 @@ public:
 
     GroupOfMonsters(std::initializer_list<Monster> monsters);
 
-    HealthPoints getHealth();
+    HealthPoints getHealth() const;
 
-    AttackPower getAttackPower();
+    AttackPower getAttackPower() const;
 
     void takeDamage(AttackPower damage);
-
-    bool isAlive();
 };
 
 Zombie createZombie(HealthPoints health, AttackPower attackPower);

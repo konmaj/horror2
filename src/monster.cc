@@ -19,17 +19,17 @@ GroupOfMonsters::GroupOfMonsters(std::initializer_list<Monster> monsters) : mons
 
 GroupOfMonsters::GroupOfMonsters(std::vector<Monster> monsters) : monsters_(monsters) {}
 
-HealthPoints GroupOfMonsters::getHealth() {
+HealthPoints GroupOfMonsters::getHealth() const {
     HealthPoints health = 0;
     for (auto &monster : monsters_)
         health += monster.getHealth();
     return health;
 }
 
-AttackPower GroupOfMonsters::getAttackPower()  {
+AttackPower GroupOfMonsters::getAttackPower()  const {
     AttackPower power = 0;
     for (auto &monster : monsters_) {
-        if (monster.isAlive())
+        if (monster.getHealth() > 0)
             power += monster.getAttackPower();
     }
     return power;
@@ -38,14 +38,6 @@ AttackPower GroupOfMonsters::getAttackPower()  {
 void GroupOfMonsters::takeDamage(AttackPower damage) {
     for (auto &monster : monsters_)
         monster.takeDamage(damage);
-}
-
-bool GroupOfMonsters::isAlive() {
-    for (auto &monster : monsters_) {
-        if (monster.isAlive())
-            return true;
-    }
-    return false;
 }
 
 Zombie createZombie(HealthPoints health, AttackPower attackPower) {

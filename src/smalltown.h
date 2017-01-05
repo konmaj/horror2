@@ -9,22 +9,24 @@
 #include "monster.h"
 #include "helper.h"
 
-const std::string CITIZENS_WON = "CITIZENS WON";
-const std::string MONSTER_WON = "MONSTER WON";
-const std::string DRAW = "DRAW";
-
 class GroupOfCitizens {
 public:
 
     GroupOfCitizens(std::vector<Citizen> citizens);
 
-    bool isAlive();
+    HealthPoints getHealth();
 
     AttackPower getAttackPower();
 
     void takeDamage(AttackPower damage);
 
     std::vector<Citizen> citizens;
+};
+
+class AttackTime {
+public:
+
+    static bool shouldAttack(Time time);
 };
 
 class SmallTown {

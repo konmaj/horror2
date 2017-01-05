@@ -20,8 +20,6 @@ public:
 
     void takeDamage(AttackPower damage);
 
-    bool isAlive();
-
 private:
 
     HealthPoints healthPoints_;
@@ -37,12 +35,6 @@ public:
 private:
 
     AttackPower attackPower_;
-};
-
-class AttackTime {
-public:
-
-    bool shouldAttack(Time time);
 };
 
 #endif //HORROR_HELPER_H

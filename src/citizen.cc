@@ -2,25 +2,25 @@
 #include <cassert>
 #include "citizen.h"
 
-Citizen::Citizen(Age age, HealthPoints healthPoints, AttackPower attackPower)
-        : Living(healthPoints), Attacking(attackPower), age_(age) {}
+Citizen::Citizen(HealthPoints healthPoints, Age age)
+        : Living(healthPoints), age_(age) {}
 
 Age Citizen::getAge() const {
     return age_;
 }
 
 Adult::Adult(HealthPoints healthPoints, Age age)
-        : Citizen(age, healthPoints, 0) {
+        : Citizen(healthPoints, age) {
     assert(18 <= age && age <= 100);
 }
 
 Teenager::Teenager(HealthPoints healthPoints, Age age)
-        : Citizen(age, healthPoints, 0) {
+        : Citizen(healthPoints, age) {
     assert(11 <= age && age <= 17);
 }
 
 Sheriff::Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower)
-        : Citizen(healthPoints, age, attackPower) {}
+        : Citizen(healthPoints, age), Attacking(attackPower) {}
 
 Adult createAdult(HealthPoints healthPoints, Age age) {
     return Adult(healthPoints, age);

@@ -5,10 +5,10 @@
 #include <cstdint>
 #include "helper.h"
 
-class Citizen : public Living, public Attacking {
+class Citizen : public Living {
 public:
 
-    Citizen(Age age, HealthPoints healthPoints, AttackPower attackPower);
+    Citizen(HealthPoints healthPoints, Age age);
 
     Age getAge() const;
 
@@ -29,7 +29,7 @@ public:
     Teenager(HealthPoints healthPoints, Age age);
 };
 
-class Sheriff : public Citizen {
+class Sheriff : public Citizen, public Attacking {
 public:
 
     Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);

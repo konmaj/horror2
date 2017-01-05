@@ -16,18 +16,10 @@ void Living::takeDamage(AttackPower damage) {
     healthPoints_ -= std::min(healthPoints_, static_cast<HealthPoints>(damage));
 }
 
-bool Living::isAlive() {
-    return healthPoints_ > 0;
-}
-
 Attacking::Attacking(AttackPower attackPower) : attackPower_(attackPower) {
     assert(attackPower >= 0);
 }
 
 AttackPower Attacking::getAttackPower() const {
     return attackPower_;
-}
-
-bool AttackTime::shouldAttack(Time time) {
-    return time % 3 == 0 && time % 13 == 0 && time % 7 != 0;
 }

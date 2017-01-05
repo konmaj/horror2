@@ -1,21 +1,23 @@
 ﻿// Konrad Majewski, Mateusz Warzyński
 #include "smalltown.h"
 
+const std::string CITIZENS_WON = "CITIZENS WON";
+const std::string MONSTER_WON = "MONSTER WON";
+const std::string DRAW = "DRAW";
+
 GroupOfCitizens::GroupOfCitizens(std::vector<Citizen> citizens) : citizens(citizens) {}
 
-bool GroupOfCitizens::isAlive() {
-    for (auto &c : citizens) {
-        if (c.isAlive())
-            return true;
-    }
-    return false;
+// TODO
+HealthPoints GroupOfCitizens::getHealth() {
+    return 0;
 }
 
 AttackPower GroupOfCitizens::getAttackPower() {
     AttackPower power = 0;
     for (auto &c : citizens) {
-        if (c.isAlive())
-            power += c.getAttackPower();
+        if (c.getHealth() > 0)
+            // TODO
+            power += 0; //c.getAttackPower();
     }
     return power;
 }
@@ -25,10 +27,12 @@ void GroupOfCitizens::takeDamage(AttackPower damage) {
         c.takeDamage(damage);
 }
 
-SmallTown::Builder::Builder() : monster_(default_monster), citizens_(default_citizens), start_time_(default_time),
-                                max_time_(default_max_time) {
-    attack_time_ = AttackTime();
+bool AttackTime::shouldAttack(Time time) {
+    return (time % 3 == 0 || time % 13 == 0) && time % 7 != 0;
 }
+
+SmallTown::Builder::Builder() : monster_(default_monster), citizens_(default_citizens), start_time_(default_time),
+                                max_time_(default_max_time) {}
 
 SmallTown SmallTown::Builder::build() {
     return SmallTown(monster_, citizens_, start_time_, max_time_, attack_time_);
@@ -71,7 +75,7 @@ std::tuple<std::string, HealthPoints, size_t> SmallTown::getStatus() {
 
 void SmallTown::tick(Time timeStep) {
     checkState();
-    if (attack_time_.shouldAttack(time_)) {
+    if (AttackTime::shouldAttack(time_)) {
         citizens_.takeDamage(monster_.getAttackPower());
         monster_.takeDamage(citizens_.getAttackPower());
     }
@@ -79,8 +83,8 @@ void SmallTown::tick(Time timeStep) {
 }
 
 void SmallTown::checkState() {
-    bool monsterAlive = monster_.isAlive();
-    bool citizensAlive = citizens_.isAlive();
+    bool monsterAlive = monster_.getHealth() > 0;
+    bool citizensAlive = citizens_.getHealth() > 0;
     if (monsterAlive && citizensAlive)
         return;
     if (monsterAlive) {
