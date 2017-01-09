@@ -3,23 +3,23 @@
 #include <cassert>
 #include "helper.h"
 
-Living::Living(HealthPoints healthPoints) : healthPoints_(healthPoints) {
+LivingOne::LivingOne(HealthPoints healthPoints) : healthPoints_(healthPoints) {
     assert(healthPoints >= 0);
 }
 
-HealthPoints Living::getHealth() const {
+HealthPoints LivingOne::getHealth() const {
     return healthPoints_;
 }
 
-void Living::takeDamage(AttackPower damage) {
+void LivingOne::takeDamage(AttackPower damage) {
     assert(damage >= 0);
     healthPoints_ -= std::min(healthPoints_, static_cast<HealthPoints>(damage));
 }
 
-Attacking::Attacking(AttackPower attackPower) : attackPower_(attackPower) {
+AttackingOne::AttackingOne(AttackPower attackPower) : attackPower_(attackPower) {
     assert(attackPower >= 0);
 }
 
-AttackPower Attacking::getAttackPower() const {
+AttackPower AttackingOne::getAttackPower() const {
     return attackPower_;
 }

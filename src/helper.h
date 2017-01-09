@@ -11,26 +11,40 @@ using HealthPoints = int32_t;
 using AttackPower = int32_t;
 using Time = int32_t;
 
-class Living {
+class LivingInterface {
 public:
 
-    Living(HealthPoints healthPoints);
+    virtual HealthPoints getHealth() const = 0;
+    
+    virtual void takeDamage(AttackPower damage) = 0;
+};
 
-    HealthPoints getHealth() const;
+class LivingOne : public virtual LivingInterface {
+public:
 
-    void takeDamage(AttackPower damage);
+    LivingOne(HealthPoints healthPoints);
+
+    HealthPoints getHealth() const override;
+
+    void takeDamage(AttackPower damage) override;
 
 private:
 
     HealthPoints healthPoints_;
 };
 
-class Attacking {
+class AttackingInterface {
 public:
 
-    Attacking(AttackPower attackPower);
+    virtual AttackPower getAttackPower() const = 0;
+};
 
-    AttackPower getAttackPower() const;
+class AttackingOne : public virtual AttackingInterface {
+public:
+
+    AttackingOne(AttackPower attackPower);
+
+    AttackPower getAttackPower() const override;
 
 private:
 

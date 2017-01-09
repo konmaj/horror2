@@ -2,50 +2,72 @@
 #ifndef HORROR_MONSTER_H
 #define HORROR_MONSTER_H
 
-#include <vector>
+#include <string>
 #include <initializer_list>
+#include <vector>
 #include "helper.h"
 
-class Monster : public Living, public Attacking {
+class MonsterComponent : public virtual LivingInterface, 
+                         public virtual AttackingInterface {
+public:
+
+    virtual std::string getName() const = 0;
+};
+
+class Monster : public MonsterComponent, public LivingOne, public AttackingOne {
 public:
 
     Monster();
 
     Monster(HealthPoints healthPoints, AttackPower attackPower);
+    
+    std::string getName() const override {
+        return "Monster";
+    }
 };
 
 class Zombie : public Monster {
 public:
 
     Zombie(HealthPoints healthPoints, AttackPower attackPower);
+    
+    std::string getName() const override;
 };
 
 class Vampire : public Monster {
 public:
 
     Vampire(HealthPoints healthPoints, AttackPower attackPower);
+    
+    std::string getName() const override;
 };
 
 class Mummy : public Monster {
 public:
 
     Mummy(HealthPoints healthPoints, AttackPower attackPower);
+    
+    std::string getName() const override;
 };
 
-class GroupOfMonsters : public Monster {
-    std::vector<Monster> monsters_;
-
+class GroupOfMonsters : public MonsterComponent {
 public:
 
     GroupOfMonsters(std::vector<Monster> monsters);
 
     GroupOfMonsters(std::initializer_list<Monster> monsters);
 
-    HealthPoints getHealth() const;
+    HealthPoints getHealth() const override;
 
-    AttackPower getAttackPower() const;
+    AttackPower getAttackPower() const override;
 
-    void takeDamage(AttackPower damage);
+    void takeDamage(AttackPower damage) override;
+    
+    std::string getName() const override;
+    
+private:
+
+    std::vector<Monster> monsters_;
 };
 
 Zombie createZombie(HealthPoints health, AttackPower attackPower);

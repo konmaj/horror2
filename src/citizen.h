@@ -5,7 +5,7 @@
 #include <cstdint>
 #include "helper.h"
 
-class Citizen : public Living {
+class Citizen : public LivingOne {
 public:
 
     Citizen(HealthPoints healthPoints, Age age);
@@ -29,7 +29,7 @@ public:
     Teenager(HealthPoints healthPoints, Age age);
 };
 
-class Sheriff : public Citizen, public Attacking {
+class Sheriff : public Adult, public AttackingOne {
 public:
 
     Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);

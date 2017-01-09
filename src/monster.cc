@@ -1,19 +1,31 @@
 ﻿// Konrad Majewski, Mateusz Warzyński
 #include "monster.h"
 
-Monster::Monster() : Living(0), Attacking(0) {}
+Monster::Monster() : LivingOne(0), AttackingOne(0) {}
 
 Monster::Monster(HealthPoints healthPoints, AttackPower attackPower)
-        : Living(healthPoints), Attacking(attackPower) {}
+        : LivingOne(healthPoints), AttackingOne(attackPower) {}
 
 Zombie::Zombie(HealthPoints healthPoints, AttackPower attackPower)
         : Monster(healthPoints, attackPower) {}
 
+std::string Zombie::getName() const {
+    return "Zombie";
+}
+
 Vampire::Vampire(HealthPoints healthPoints, AttackPower attackPower)
         : Monster(healthPoints, attackPower) {}
 
+std::string Vampire::getName() const {
+    return "Vampire";
+}
+
 Mummy::Mummy(HealthPoints healthPoints, AttackPower attackPower)
         : Monster(healthPoints, attackPower) {}
+
+std::string Mummy::getName() const {
+    return "Mummy";
+}
 
 GroupOfMonsters::GroupOfMonsters(std::initializer_list<Monster> monsters) : monsters_(monsters) {}
 
@@ -38,6 +50,10 @@ AttackPower GroupOfMonsters::getAttackPower()  const {
 void GroupOfMonsters::takeDamage(AttackPower damage) {
     for (auto &monster : monsters_)
         monster.takeDamage(damage);
+}
+
+std::string GroupOfMonsters::getName() const {
+    return "GroupOfMonsters";
 }
 
 Zombie createZombie(HealthPoints health, AttackPower attackPower) {

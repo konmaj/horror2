@@ -3,7 +3,7 @@
 #include "citizen.h"
 
 Citizen::Citizen(HealthPoints healthPoints, Age age)
-        : Living(healthPoints), age_(age) {}
+        : LivingOne(healthPoints), age_(age) {}
 
 Age Citizen::getAge() const {
     return age_;
@@ -20,7 +20,7 @@ Teenager::Teenager(HealthPoints healthPoints, Age age)
 }
 
 Sheriff::Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower)
-        : Citizen(healthPoints, age), Attacking(attackPower) {}
+        : Adult(healthPoints, age), AttackingOne(attackPower) {}
 
 Adult createAdult(HealthPoints healthPoints, Age age) {
     return Adult(healthPoints, age);
