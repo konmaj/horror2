@@ -15,4 +15,5 @@ set(SOURCE_FILES
         src/smalltown.cc
         src/smalltown.h)
 
+add_executable(example ./tests/example.cpp ${SOURCE_FILES})
 add_executable(test1 ./tests/test1.cpp ${SOURCE_FILES})
