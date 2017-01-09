@@ -20,7 +20,7 @@ public:
     Monster();
 
     Monster(HealthPoints healthPoints, AttackPower attackPower);
-    
+
     std::string getName() const override {
         return "Monster";
     }
@@ -30,7 +30,7 @@ class Zombie : public Monster {
 public:
 
     Zombie(HealthPoints healthPoints, AttackPower attackPower);
-    
+
     std::string getName() const override;
 };
 
@@ -38,7 +38,7 @@ class Vampire : public Monster {
 public:
 
     Vampire(HealthPoints healthPoints, AttackPower attackPower);
-    
+
     std::string getName() const override;
 };
 
@@ -46,7 +46,7 @@ class Mummy : public Monster {
 public:
 
     Mummy(HealthPoints healthPoints, AttackPower attackPower);
-    
+
     std::string getName() const override;
 };
 
@@ -62,9 +62,9 @@ public:
     AttackPower getAttackPower() const override;
 
     void takeDamage(AttackPower damage) override;
-    
+
     std::string getName() const override;
-    
+
 private:
 
     std::vector<Monster> monsters_;

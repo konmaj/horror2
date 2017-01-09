@@ -15,7 +15,7 @@ class LivingInterface {
 public:
 
     virtual HealthPoints getHealth() const = 0;
-    
+
     virtual void takeDamage(AttackPower damage) = 0;
 };
 
