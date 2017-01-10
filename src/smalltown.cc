@@ -38,32 +38,32 @@ SmallTown SmallTown::Builder::build() {
     return SmallTown(monster_, citizens_, start_time_, max_time_, attack_time_);
 }
 
-SmallTown::Builder &SmallTown::Builder::setCitizens(std::vector<Citizen> citizens) {
+SmallTown::Builder &SmallTown::Builder::citizens(std::vector<Citizen> citizens) {
     citizens_ = citizens;
     return *this;
 }
 
-SmallTown::Builder &SmallTown::Builder::addCitizen(Citizen citizen) {
+SmallTown::Builder &SmallTown::Builder::citizen(Citizen citizen) {
     citizens_.emplace_back(citizen);
     return *this;
 }
 
-SmallTown::Builder &SmallTown::Builder::setMonster(Monster monster) {
+SmallTown::Builder &SmallTown::Builder::monster(Monster monster) {
     monster_ = monster;
     return *this;
 }
 
-SmallTown::Builder &SmallTown::Builder::setStartTime(Time time) {
+SmallTown::Builder &SmallTown::Builder::startTime(Time time) {
     start_time_ = time;
     return *this;
 }
 
-SmallTown::Builder &SmallTown::Builder::setMaxTime(Time time) {
+SmallTown::Builder &SmallTown::Builder::maxTime(Time time) {
     max_time_ = time;
     return *this;
 }
 
-SmallTown::Builder &SmallTown::Builder::setAttackTime(AttackTime attack_time) {
+SmallTown::Builder &SmallTown::Builder::attackTime(AttackTime attack_time) {
     attack_time_ = attack_time;
     return *this;
 }

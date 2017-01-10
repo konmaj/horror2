@@ -10,6 +10,7 @@
 #include "citizen.h"
 #include "monster.h"
 #include "smalltown.h"
+#include <cassert>
 
 int main() {
     auto groupOfMonsters = createGroupOfMonsters({
