@@ -9,6 +9,10 @@ void Citizen::attackedBy(Monster *monster) {
     takeDamage(monster->getAttackPower());
 }
 
+Age Citizen::getAge() const {
+    return age_;
+}
+
 Adult::Adult(HealthPoints healthPoints, Age age)
         : Citizen(healthPoints, age) {
     assert(18 <= age && age <= 100);

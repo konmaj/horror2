@@ -13,6 +13,8 @@ public:
 
     virtual void attackedBy(Monster *monster);
 
+    Age getAge() const;
+
 private:
 
     Age age_;
