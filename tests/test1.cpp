@@ -17,14 +17,14 @@ int main() {
 
     Citizen first_citizen = Adult(1, 20);
 
-    SmallTown smallTown = builder.monster(mummy).citizen(first_citizen).startTime(0).startTime(100).build();
+    SmallTown smallTown = builder.monster(mummy).citizen(first_citizen).startTime(0).startTime(0).build();
 
     smallTown.tick(39); // no attack, 0 -> 39
     smallTown.tick(39); // attack, 39 -> 78
     smallTown.tick(39); // monster won, attack, 78 -> 117
 
-    //assert(monsters.isAlive());
-    //assert(!first_citizen.isAlive());
+    assert(monsters.isAlive());
+    assert(!first_citizen.isAlive());
 
     return 0;
 }

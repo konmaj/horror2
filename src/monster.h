@@ -41,9 +41,11 @@ public:
 
     GroupOfMonsters(std::initializer_list<Monster> monsters);
 
-    HealthPoints getHealth() const;
+    bool isAlive();
 
-    AttackPower getAttackPower() const;
+    HealthPoints getHealth();
+
+    AttackPower getAttackPower();
 
     void takeDamage(AttackPower damage);
 };

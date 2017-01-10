@@ -7,24 +7,16 @@ const std::string DRAW = "DRAW";
 
 GroupOfCitizens::GroupOfCitizens(std::vector<Citizen> citizens) : citizens(citizens) {}
 
-// TODO
 HealthPoints GroupOfCitizens::getHealth() {
-    return 0;
+    HealthPoints health = 0;
+    for (auto &citizen : citizens)
+        health += citizen.getHealth();
+    return health;
 }
 
-AttackPower GroupOfCitizens::getAttackPower() {
-    AttackPower power = 0;
-    for (auto &c : citizens) {
-        if (c.getHealth() > 0)
-            // TODO
-            power += 0; //c.getAttackPower();
-    }
-    return power;
-}
-
-void GroupOfCitizens::takeDamage(AttackPower damage) {
-    for (auto &c : citizens)
-        c.takeDamage(damage);
+void GroupOfCitizens::fight(Monster monster) {
+    for (auto &citizen : citizens)
+        citizen.attackedBy(&monster);
 }
 
 bool AttackTime::shouldAttack(Time time) {
@@ -75,10 +67,8 @@ std::tuple<std::string, HealthPoints, size_t> SmallTown::getStatus() {
 
 void SmallTown::tick(Time timeStep) {
     checkState();
-    if (AttackTime::shouldAttack(time_)) {
-        citizens_.takeDamage(monster_.getAttackPower());
-        monster_.takeDamage(citizens_.getAttackPower());
-    }
+    if (AttackTime::shouldAttack(time_))
+        citizens_.fight(monster_);
     time_ += timeStep;
 }
 

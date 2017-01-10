@@ -3,6 +3,7 @@
 #define HORROR_CITIZEN_H
 
 #include <cstdint>
+#include "monster.h"
 #include "helper.h"
 
 class Citizen : public Living {
@@ -10,7 +11,7 @@ public:
 
     Citizen(HealthPoints healthPoints, Age age);
 
-    Age getAge() const;
+    virtual void attackedBy(Monster *monster);
 
 private:
 
@@ -33,6 +34,8 @@ class Sheriff : public Citizen, public Attacking {
 public:
 
     Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
+
+    void attackedBy(Monster *monster);
 };
 
 Adult createAdult(HealthPoints healthPoints, Age age);

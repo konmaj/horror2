@@ -19,20 +19,28 @@ GroupOfMonsters::GroupOfMonsters(std::initializer_list<Monster> monsters) : mons
 
 GroupOfMonsters::GroupOfMonsters(std::vector<Monster> monsters) : monsters_(monsters) {}
 
-HealthPoints GroupOfMonsters::getHealth() const {
+HealthPoints GroupOfMonsters::getHealth() {
     HealthPoints health = 0;
     for (auto &monster : monsters_)
         health += monster.getHealth();
     return health;
 }
 
-AttackPower GroupOfMonsters::getAttackPower()  const {
+AttackPower GroupOfMonsters::getAttackPower() {
     AttackPower power = 0;
     for (auto &monster : monsters_) {
-        if (monster.getHealth() > 0)
+        if (monster.isAlive())
             power += monster.getAttackPower();
     }
     return power;
+}
+
+bool GroupOfMonsters::isAlive() {
+    for (auto monster : monsters_) {
+        if (monster.isAlive())
+            return true;
+    }
+    return false;
 }
 
 void GroupOfMonsters::takeDamage(AttackPower damage) {

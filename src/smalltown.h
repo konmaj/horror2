@@ -16,9 +16,7 @@ public:
 
     HealthPoints getHealth();
 
-    AttackPower getAttackPower();
-
-    void takeDamage(AttackPower damage);
+    void fight(Monster monster);
 
     std::vector<Citizen> citizens;
 };

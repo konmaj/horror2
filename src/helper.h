@@ -16,7 +16,9 @@ public:
 
     Living(HealthPoints healthPoints);
 
-    HealthPoints getHealth() const;
+    HealthPoints getHealth();
+
+    bool isAlive();
 
     void takeDamage(AttackPower damage);
 
@@ -30,7 +32,7 @@ public:
 
     Attacking(AttackPower attackPower);
 
-    AttackPower getAttackPower() const;
+    AttackPower getAttackPower();
 
 private:
 
