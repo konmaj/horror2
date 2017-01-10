@@ -62,17 +62,17 @@ public:
 
     Builder();
 
-    Builder &setMonster(Monster monster);
+    Builder &monster(Monster monster);
 
-    Builder &setCitizens(std::vector<Citizen> citizens);
+    Builder &citizens(std::vector<Citizen> citizens);
 
-    Builder &addCitizen(Citizen citizen);
+    Builder &citizen(Citizen citizen);
 
-    Builder &setStartTime(Time time);
+    Builder &startTime(Time time);
 
-    Builder &setMaxTime(Time time);
+    Builder &maxTime(Time time);
 
-    Builder &setAttackTime(AttackTime attackTime);
+    Builder &attackTime(AttackTime attackTime);
 
     SmallTown build();
 

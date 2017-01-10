@@ -17,7 +17,7 @@ int main() {
 
     Citizen first_citizen = Adult(1, 20);
 
-    SmallTown smallTown = builder.setMonster(mummy).addCitizen(first_citizen).setStartTime(0).setMaxTime(100).build();
+    SmallTown smallTown = builder.monster(mummy).citizen(first_citizen).startTime(0).startTime(100).build();
 
     smallTown.tick(39); // no attack, 0 -> 39
     smallTown.tick(39); // attack, 39 -> 78
