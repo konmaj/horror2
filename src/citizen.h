@@ -40,10 +40,10 @@ public:
     void attackedBy(std::shared_ptr<Monster> &monster);
 };
 
-std::shared_ptr<Adult> createAdult(HealthPoints healthPoints, Age age);
+std::shared_ptr<Citizen> createAdult(HealthPoints healthPoints, Age age);
 
-std::shared_ptr<Teenager> createTeenager(HealthPoints healthPoints, Age age);
+std::shared_ptr<Citizen> createTeenager(HealthPoints healthPoints, Age age);
 
-std::shared_ptr<Sheriff> createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
+std::shared_ptr<Citizen> createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
 
 #endif //HORROR_CITIZEN_H

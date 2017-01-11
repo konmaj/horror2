@@ -58,11 +58,11 @@ public:
     std::string getName() const;
 };
 
-std::shared_ptr<Zombie> createZombie(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Monster> createZombie(HealthPoints health, AttackPower attackPower);
 
-std::shared_ptr<Vampire> createVampire(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Monster> createVampire(HealthPoints health, AttackPower attackPower);
 
-std::shared_ptr<Mummy> createMummy(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Monster> createMummy(HealthPoints health, AttackPower attackPower);
 
 std::shared_ptr<GroupOfMonsters> createGroupOfMonsters(std::vector<std::shared_ptr<Monster>> &monsters);
 

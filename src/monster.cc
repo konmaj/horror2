@@ -62,15 +62,15 @@ std::string GroupOfMonsters::getName() const {
     return "GroupOfMonsters";
 }
 
-std::shared_ptr<Zombie> createZombie(HealthPoints health, AttackPower attackPower) {
+std::shared_ptr<Monster> createZombie(HealthPoints health, AttackPower attackPower) {
     return std::make_shared<Zombie>(health, attackPower);
 }
 
-std::shared_ptr<Vampire> createVampire(HealthPoints health, AttackPower attackPower) {
+std::shared_ptr<Monster> createVampire(HealthPoints health, AttackPower attackPower) {
     return std::make_shared<Vampire>(health, attackPower);
 }
 
-std::shared_ptr<Mummy> createMummy(HealthPoints health, AttackPower attackPower) {
+std::shared_ptr<Monster> createMummy(HealthPoints health, AttackPower attackPower) {
     return std::make_shared<Mummy>(health, attackPower);
 }
 

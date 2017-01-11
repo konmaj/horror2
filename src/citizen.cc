@@ -32,14 +32,14 @@ void Sheriff::attackedBy(std::shared_ptr<Monster> &monster) {
         monster->takeDamage(getAttackPower());
 }
 
-std::shared_ptr<Adult> createAdult(HealthPoints healthPoints, Age age) {
+std::shared_ptr<Citizen> createAdult(HealthPoints healthPoints, Age age) {
     return std::make_shared<Adult>(healthPoints, age);
 }
 
-std::shared_ptr<Teenager> createTeenager(HealthPoints healthPoints, Age age) {
+std::shared_ptr<Citizen> createTeenager(HealthPoints healthPoints, Age age) {
     return std::make_shared<Teenager>(healthPoints, age);
 }
 
-std::shared_ptr<Sheriff> createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower) {
+std::shared_ptr<Citizen> createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower) {
     return std::make_shared<Sheriff>(healthPoints, age, attackPower);
 }
