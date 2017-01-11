@@ -5,24 +5,33 @@ const std::string CITIZENS_WON = "CITIZENS WON";
 const std::string MONSTER_WON = "MONSTER WON";
 const std::string DRAW = "DRAW";
 
-GroupOfCitizens::GroupOfCitizens(std::vector<std::shared_ptr<Citizen>> &citizens) : Citizen(0, 0), citizens(citizens) {
+GroupOfCitizens::GroupOfCitizens(const std::vector<std::shared_ptr<Citizen>> &citizens) : Citizen(0, 0), citizens_(citizens) {
     healthPoints_ = getHealth();
-
 }
 
 HealthPoints GroupOfCitizens::getHealth() {
     HealthPoints health = 0;
-    for (auto &citizen : citizens)
+    for (auto &citizen : citizens_)
         health += citizen->getHealth();
     return health;
 }
 
 void GroupOfCitizens::attackedBy(std::shared_ptr<Monster> &monster) {
-    for (auto &citizen : citizens)
+    for (auto &citizen : citizens_)
         citizen->attackedBy(monster);
+    healthPoints_ = getHealth();
 }
 
-bool AttackTime::shouldAttack(Time time) {
+size_t GroupOfCitizens::countAlive() {
+    size_t count = 0;
+    for (auto &citizen : citizens_) {
+        if (citizen->isAlive())
+            count += 1;
+    }
+    return count;
+}
+
+bool CustomAttackTime::shouldAttack(Time time) {
     return (time % 3 == 0 || time % 13 == 0) && time % 7 != 0;
 }
 
@@ -32,6 +41,9 @@ SmallTown SmallTown::Builder::build() {
 }
 
 SmallTown::Builder &SmallTown::Builder::citizen(const std::shared_ptr<Citizen> &citizen) {
+    if (added_citizens.find(citizen) != added_citizens.end())
+        return *this;
+    added_citizens.insert(citizen);
     citizens_.emplace_back(citizen);
     return *this;
 }
@@ -51,7 +63,7 @@ SmallTown::Builder &SmallTown::Builder::maxTime(const Time time) {
     return *this;
 }
 
-SmallTown::Builder &SmallTown::Builder::attackTime(const AttackTime attack_time) {
+SmallTown::Builder &SmallTown::Builder::attackTime(const std::shared_ptr<AttackTime> &attack_time) {
     attack_time_ = attack_time;
     return *this;
 }
@@ -72,17 +84,16 @@ std::string SmallTown::Status::getMonsterName() const {
 }
 
 SmallTown::SmallTown(std::shared_ptr<Monster> &m, std::shared_ptr<GroupOfCitizens> &c, Time t, Time mt,
-                     AttackTime at) : monster_(m), citizens_(c), time_(t), max_time_(mt), attack_time_(at) {}
+                     std::shared_ptr<AttackTime> &at) : monster_(m), citizens_(c), time_(t), max_time_(mt), attack_time_(at) {}
 
 SmallTown::Status SmallTown::getStatus() {
-    // TODO: implement SmallTown::getStatus()
-    return Status("asdas", 0, 0);
+    return Status(monster_->getName(), monster_->getHealth(), citizens_->countAlive());
 }
 
 void SmallTown::tick(Time timeStep) {
     checkState();
-//    if (AttackTime::shouldAttack(time_))
-//        citizens_.fight(monster_);
+    if (attack_time_->shouldAttack(time_))
+        citizens_->attackedBy(monster_);
     time_ += timeStep;
 }
 

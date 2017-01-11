@@ -1,21 +1,21 @@
 ﻿// Konrad Majewski, Mateusz Warzyński
 #include "monster.h"
 
-Monster::Monster(const HealthPoints healthPoints, const AttackPower attackPower) : Living(healthPoints), Attacking(attackPower) {}
+Monster::Monster(const HealthPoints &healthPoints, const AttackPower &attackPower) : Living(healthPoints), Attacking(attackPower) {}
 
-Zombie::Zombie(const HealthPoints healthPoints, const AttackPower attackPower) : Monster(healthPoints, attackPower) {}
+Zombie::Zombie(const HealthPoints &healthPoints, const AttackPower &attackPower) : Monster(healthPoints, attackPower) {}
 
 std::string Zombie::getName() const {
     return "Zombie";
 }
 
-Vampire::Vampire(const HealthPoints healthPoints, const AttackPower attackPower) : Monster(healthPoints, attackPower) {}
+Vampire::Vampire(const HealthPoints &healthPoints, const AttackPower &attackPower) : Monster(healthPoints, attackPower) {}
 
 std::string Vampire::getName() const {
     return "Vampire";
 }
 
-Mummy::Mummy(const HealthPoints healthPoints, const AttackPower attackPower) : Monster(healthPoints, attackPower) {}
+Mummy::Mummy(const HealthPoints &healthPoints, const AttackPower &attackPower) : Monster(healthPoints, attackPower) {}
 
 std::string Mummy::getName() const {
     return "Mummy";
@@ -48,8 +48,13 @@ AttackPower GroupOfMonsters::getAttackPower() {
 }
 
 void GroupOfMonsters::takeDamage(AttackPower damage) {
+    healthPoints_ = 0;
     for (auto &monster : monsters_)
         monster->takeDamage(damage);
+}
+
+std::string GroupOfMonsters::getName() const {
+    return "GroupOfMonsters";
 }
 
 std::shared_ptr<Zombie> createZombie(HealthPoints health, AttackPower attackPower) {

@@ -25,6 +25,8 @@ int main() {
 
     smallTown.tick(0);
 
+    HealthPoints h = s->getHealth();
+
     assert(s->getHealth() == 99);
     assert(smallTown.getStatus().getMonsterHealth() == 80);
     assert(smallTown.getStatus().getAliveCitizens() == 2);

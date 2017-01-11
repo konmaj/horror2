@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstdint>
 #include <tuple>
+#include <set>
 #include "citizen.h"
 #include "monster.h"
 #include "helper.h"
@@ -12,21 +13,27 @@
 class GroupOfCitizens : public Citizen {
 public:
 
-    GroupOfCitizens(std::vector<std::shared_ptr<Citizen>> &citizens);
+    GroupOfCitizens(const std::vector<std::shared_ptr<Citizen>> &citizens);
 
     HealthPoints getHealth();
+
+    size_t countAlive();
 
     void attackedBy(std::shared_ptr<Monster> &monster);
 
 private:
 
-    std::vector<std::shared_ptr<Citizen>> &citizens;
+    std::vector<std::shared_ptr<Citizen>> citizens_;
 };
 
 class AttackTime {
 public:
 
-    static bool shouldAttack(Time time);
+    virtual bool shouldAttack(Time time) = 0;
+};
+
+class CustomAttackTime : public AttackTime {
+    bool shouldAttack(Time time);
 };
 
 class SmallTown {
@@ -43,12 +50,12 @@ public:
 private:
 
     std::shared_ptr<Monster> &monster_;
-    std::shared_ptr<GroupOfCitizens> &citizens_;
+    std::shared_ptr<GroupOfCitizens> citizens_;
+    std::shared_ptr<AttackTime> attack_time_;
     Time time_;
     Time max_time_;
-    AttackTime attack_time_;
 
-    SmallTown(std::shared_ptr<Monster> &m, std::shared_ptr<GroupOfCitizens> &c, Time t, Time mt, AttackTime at);
+    SmallTown(std::shared_ptr<Monster> &m, std::shared_ptr<GroupOfCitizens> &c, Time t, Time mt, std::shared_ptr<AttackTime> &at);
 
     void checkState();
 };
@@ -64,17 +71,18 @@ public:
 
     Builder &maxTime(const Time time);
 
-    Builder &attackTime(const AttackTime attackTime);
+    Builder &attackTime(const std::shared_ptr<AttackTime> &attackTime);
 
     SmallTown build();
 
 private:
 
+    std::set<std::shared_ptr<Citizen>> added_citizens;
     std::shared_ptr<Monster> monster_;
     std::vector<std::shared_ptr<Citizen>> citizens_;
     Time start_time_;
     Time max_time_;
-    AttackTime attack_time_;
+    std::shared_ptr<AttackTime> attack_time_ = std::make_shared<CustomAttackTime>();
 };
 
 class SmallTown::Status {

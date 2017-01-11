@@ -3,7 +3,7 @@
 #include <cassert>
 #include "helper.h"
 
-Living::Living(HealthPoints healthPoints) : healthPoints_(healthPoints) {
+Living::Living(const HealthPoints &healthPoints) : healthPoints_(healthPoints) {
     assert(healthPoints >= 0);
 }
 
@@ -20,7 +20,7 @@ bool Living::isAlive() {
     return getHealth() > 0;
 }
 
-Attacking::Attacking(AttackPower attackPower) : attackPower_(attackPower) {
+Attacking::Attacking(const AttackPower &attackPower) : attackPower_(attackPower) {
     assert(attackPower >= 0);
 }
 

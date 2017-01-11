@@ -5,7 +5,6 @@
 #include <cstdint>
 #include <cstddef>
 #include <memory>
-#include <vector>
 
 using Age = int32_t;
 using HealthPoints = int32_t;
@@ -15,13 +14,13 @@ using Time = int32_t;
 class Living {
 public:
 
-    Living(HealthPoints healthPoints);
+    Living(const HealthPoints &healthPoints);
 
-    HealthPoints getHealth();
+    virtual HealthPoints getHealth();
 
-    bool isAlive();
+    virtual bool isAlive();
 
-    void takeDamage(AttackPower damage);
+    virtual void takeDamage(AttackPower damage);
 
 protected:
 
@@ -31,9 +30,9 @@ protected:
 class Attacking {
 public:
 
-    Attacking(AttackPower attackPower);
+    Attacking(const AttackPower &attackPower);
 
-    AttackPower getAttackPower();
+    virtual AttackPower getAttackPower();
 
 protected:
 

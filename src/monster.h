@@ -13,13 +13,13 @@ public:
 
 protected:
 
-    Monster(const HealthPoints, const AttackPower);
+    Monster(const HealthPoints &healthPoints, const AttackPower &attackPower);
 };
 
 class Zombie : public Monster {
 public:
 
-    Zombie(const HealthPoints, const AttackPower);
+    Zombie(const HealthPoints &healthPoints, const AttackPower &attackPower);
 
     std::string getName() const;
 };
@@ -27,7 +27,7 @@ public:
 class Vampire : public Monster {
 public:
 
-    Vampire(const HealthPoints, const AttackPower);
+    Vampire(const HealthPoints &healthPoints, const AttackPower &attackPower);
 
     std::string getName() const;
 };
@@ -35,7 +35,7 @@ public:
 class Mummy : public Monster {
 public:
 
-    Mummy(const HealthPoints, const AttackPower);
+    Mummy(const HealthPoints &healthPoints, const AttackPower &attackPower);
 
     std::string getName() const;
 };

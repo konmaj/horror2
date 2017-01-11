@@ -9,13 +9,13 @@
 class Citizen : public Living {
 public:
 
-    Citizen(HealthPoints healthPoints, Age age);
-
     virtual void attackedBy(std::shared_ptr<Monster> &monster);
 
     Age getAge() const;
 
-private:
+protected:
+
+    Citizen(const HealthPoints &healthPoints, const Age &age);
 
     Age age_;
 };
@@ -23,19 +23,19 @@ private:
 class Adult : public Citizen {
 public:
 
-    Adult(HealthPoints healthPoints, Age age);
+    Adult(const HealthPoints &healthPoints, const Age &age);
 };
 
 class Teenager : public Citizen {
 public:
 
-    Teenager(HealthPoints healthPoints, Age age);
+    Teenager(const HealthPoints &healthPoints, const Age &age);
 };
 
 class Sheriff : public Citizen, public Attacking {
 public:
 
-    Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
+    Sheriff(const HealthPoints &healthPoints, const Age &age, const AttackPower &attackPower);
 
     void attackedBy(std::shared_ptr<Monster> &monster);
 };
