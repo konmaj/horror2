@@ -1,7 +1,8 @@
 ﻿// Konrad Majewski, Mateusz Warzyński
 #include "monster.h"
 
-Monster::Monster(const HealthPoints &healthPoints, const AttackPower &attackPower) : Living(healthPoints), Attacking(attackPower) {}
+Monster::Monster(const HealthPoints &healthPoints, const AttackPower &attackPower) : Living(healthPoints),
+                                                                                     Attacking(attackPower) {}
 
 Zombie::Zombie(const HealthPoints &healthPoints, const AttackPower &attackPower) : Monster(healthPoints, attackPower) {}
 
@@ -9,7 +10,8 @@ std::string Zombie::getName() const {
     return "Zombie";
 }
 
-Vampire::Vampire(const HealthPoints &healthPoints, const AttackPower &attackPower) : Monster(healthPoints, attackPower) {}
+Vampire::Vampire(const HealthPoints &healthPoints, const AttackPower &attackPower) : Monster(healthPoints,
+                                                                                             attackPower) {}
 
 std::string Vampire::getName() const {
     return "Vampire";
@@ -21,12 +23,15 @@ std::string Mummy::getName() const {
     return "Mummy";
 }
 
-GroupOfMonsters::GroupOfMonsters(const std::initializer_list<std::shared_ptr<Monster>> &monsters) : Monster(0, 0), monsters_(monsters) {
+GroupOfMonsters::GroupOfMonsters(const std::initializer_list<std::shared_ptr<Monster>> &monsters) : Monster(0, 0),
+                                                                                                    monsters_(
+                                                                                                            monsters) {
     healthPoints_ = getHealth();
     attackPower_ = getAttackPower();
 }
 
-GroupOfMonsters::GroupOfMonsters(const std::vector<std::shared_ptr<Monster>> &monsters) : Monster(0, 0), monsters_(monsters) {
+GroupOfMonsters::GroupOfMonsters(const std::vector<std::shared_ptr<Monster>> &monsters) : Monster(0, 0),
+                                                                                          monsters_(monsters) {
     healthPoints_ = getHealth();
     attackPower_ = getAttackPower();
 }

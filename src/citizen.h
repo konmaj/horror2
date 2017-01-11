@@ -11,7 +11,7 @@ public:
 
     virtual void attackedBy(std::shared_ptr<Monster> &monster);
 
-    Age getAge() const;
+    virtual Age getAge() const;
 
 protected:
 

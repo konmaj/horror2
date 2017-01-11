@@ -55,7 +55,8 @@ private:
     Time time_;
     Time max_time_;
 
-    SmallTown(std::shared_ptr<Monster> &m, std::shared_ptr<GroupOfCitizens> &c, Time t, Time mt, std::shared_ptr<AttackTime> &at);
+    SmallTown(std::shared_ptr<Monster> &m, std::shared_ptr<GroupOfCitizens> &c, Time t, Time mt,
+              std::shared_ptr<AttackTime> &at);
 
     void checkState();
 };
@@ -88,7 +89,7 @@ private:
 class SmallTown::Status {
 public:
 
-    Status(const std::string& monsterName, const HealthPoints& healthPoints, const size_t& aliveCount);
+    Status(const std::string &monsterName, const HealthPoints &healthPoints, const size_t &aliveCount);
 
     std::string getMonsterName() const;
 

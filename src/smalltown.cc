@@ -5,7 +5,8 @@ const std::string CITIZENS_WON = "CITIZENS WON";
 const std::string MONSTER_WON = "MONSTER WON";
 const std::string DRAW = "DRAW";
 
-GroupOfCitizens::GroupOfCitizens(const std::vector<std::shared_ptr<Citizen>> &citizens) : Citizen(0, 0), citizens_(citizens) {
+GroupOfCitizens::GroupOfCitizens(const std::vector<std::shared_ptr<Citizen>> &citizens) : Citizen(0, 0),
+                                                                                          citizens_(citizens) {
     healthPoints_ = getHealth();
 }
 
@@ -84,7 +85,8 @@ std::string SmallTown::Status::getMonsterName() const {
 }
 
 SmallTown::SmallTown(std::shared_ptr<Monster> &m, std::shared_ptr<GroupOfCitizens> &c, Time t, Time mt,
-                     std::shared_ptr<AttackTime> &at) : monster_(m), citizens_(c), time_(t), max_time_(mt), attack_time_(at) {}
+                     std::shared_ptr<AttackTime> &at) : monster_(m), citizens_(c), time_(t), max_time_(mt),
+                                                        attack_time_(at) {}
 
 SmallTown::Status SmallTown::getStatus() {
     return Status(monster_->getName(), monster_->getHealth(), citizens_->countAlive());

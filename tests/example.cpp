@@ -29,7 +29,6 @@ int main() {
 
 
     auto status = smallTown.getStatus();
-    HealthPoints h = status.getMonsterHealth();
     assert(status.getMonsterName() == "GroupOfMonsters");
     assert(status.getMonsterHealth() == 80);
     assert(status.getAliveCitizens() == 3);
