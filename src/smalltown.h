@@ -49,16 +49,16 @@ public:
 
 private:
 
+    SmallTown(std::shared_ptr<Monster> &m, std::shared_ptr<GroupOfCitizens> &c, Time t, Time mt,
+              std::shared_ptr<AttackTime> &at);
+
+    void checkState();
+
     std::shared_ptr<Monster> &monster_;
     std::shared_ptr<GroupOfCitizens> citizens_;
     std::shared_ptr<AttackTime> attack_time_;
     Time time_;
     Time max_time_;
-
-    SmallTown(std::shared_ptr<Monster> &m, std::shared_ptr<GroupOfCitizens> &c, Time t, Time mt,
-              std::shared_ptr<AttackTime> &at);
-
-    void checkState();
 };
 
 class SmallTown::Builder {
