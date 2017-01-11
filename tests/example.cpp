@@ -13,11 +13,8 @@
 #include <cassert>
 
 int main() {
-    auto groupOfMonsters = createGroupOfMonsters({
-                                                         createMummy(90, 1),
-                                                         createZombie(20, 1),
-                                                         createVampire(30, 1)
-                                                 });
+    auto groupOfMonsters = createGroupOfMonsters({createMummy(90, 1), createZombie(20, 1), createVampire(30, 1)});
+
     auto smallTown = SmallTown::Builder()
             .monster(groupOfMonsters)
             .startTime(3)

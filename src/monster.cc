@@ -1,69 +1,73 @@
 ﻿// Konrad Majewski, Mateusz Warzyński
 #include "monster.h"
 
-Monster::Monster() : Living(0), Attacking(0) {}
+Monster::Monster(const HealthPoints healthPoints, const AttackPower attackPower) : Living(healthPoints), Attacking(attackPower) {}
 
-Monster::Monster(HealthPoints healthPoints, AttackPower attackPower)
-        : Living(healthPoints), Attacking(attackPower) {}
+Zombie::Zombie(const HealthPoints healthPoints, const AttackPower attackPower) : Monster(healthPoints, attackPower) {}
 
-Zombie::Zombie(HealthPoints healthPoints, AttackPower attackPower)
-        : Monster(healthPoints, attackPower) {}
+std::string Zombie::getName() const {
+    return "Zombie";
+}
 
-Vampire::Vampire(HealthPoints healthPoints, AttackPower attackPower)
-        : Monster(healthPoints, attackPower) {}
+Vampire::Vampire(const HealthPoints healthPoints, const AttackPower attackPower) : Monster(healthPoints, attackPower) {}
 
-Mummy::Mummy(HealthPoints healthPoints, AttackPower attackPower)
-        : Monster(healthPoints, attackPower) {}
+std::string Vampire::getName() const {
+    return "Vampire";
+}
 
-GroupOfMonsters::GroupOfMonsters(std::initializer_list<Monster> monsters) : monsters_(monsters) {}
+Mummy::Mummy(const HealthPoints healthPoints, const AttackPower attackPower) : Monster(healthPoints, attackPower) {}
 
-GroupOfMonsters::GroupOfMonsters(std::vector<Monster> monsters) : monsters_(monsters) {}
+std::string Mummy::getName() const {
+    return "Mummy";
+}
+
+GroupOfMonsters::GroupOfMonsters(const std::initializer_list<std::shared_ptr<Monster>> &monsters) : Monster(0, 0), monsters_(monsters) {
+    healthPoints_ = getHealth();
+    attackPower_ = getAttackPower();
+}
+
+GroupOfMonsters::GroupOfMonsters(const std::vector<std::shared_ptr<Monster>> &monsters) : Monster(0, 0), monsters_(monsters) {
+    healthPoints_ = getHealth();
+    attackPower_ = getAttackPower();
+}
 
 HealthPoints GroupOfMonsters::getHealth() {
     HealthPoints health = 0;
     for (auto &monster : monsters_)
-        health += monster.getHealth();
+        health += monster->getHealth();
     return health;
 }
 
 AttackPower GroupOfMonsters::getAttackPower() {
     AttackPower power = 0;
     for (auto &monster : monsters_) {
-        if (monster.isAlive())
-            power += monster.getAttackPower();
+        if (monster->isAlive())
+            power += monster->getAttackPower();
     }
     return power;
 }
 
-bool GroupOfMonsters::isAlive() {
-    for (auto monster : monsters_) {
-        if (monster.isAlive())
-            return true;
-    }
-    return false;
-}
-
 void GroupOfMonsters::takeDamage(AttackPower damage) {
     for (auto &monster : monsters_)
-        monster.takeDamage(damage);
+        monster->takeDamage(damage);
 }
 
-Zombie createZombie(HealthPoints health, AttackPower attackPower) {
-    return Zombie(health, attackPower);
+std::shared_ptr<Zombie> createZombie(HealthPoints health, AttackPower attackPower) {
+    return std::make_shared<Zombie>(health, attackPower);
 }
 
-Vampire createVampire(HealthPoints health, AttackPower attackPower) {
-    return Vampire(health, attackPower);
+std::shared_ptr<Vampire> createVampire(HealthPoints health, AttackPower attackPower) {
+    return std::make_shared<Vampire>(health, attackPower);
 }
 
-Mummy createMummy(HealthPoints health, AttackPower attackPower) {
-    return Mummy(health, attackPower);
+std::shared_ptr<Mummy> createMummy(HealthPoints health, AttackPower attackPower) {
+    return std::make_shared<Mummy>(health, attackPower);
 }
 
-GroupOfMonsters createGroupOfMonsters(std::initializer_list<Monster> monsters) {
-    return GroupOfMonsters(monsters);
+std::shared_ptr<GroupOfMonsters> createGroupOfMonsters(std::initializer_list<std::shared_ptr<Monster>> monsters) {
+    return std::make_shared<GroupOfMonsters>(monsters);
 }
 
-GroupOfMonsters createGroupOfMonsters(std::vector<Monster> monsters) {
-    return GroupOfMonsters(monsters);
+std::shared_ptr<GroupOfMonsters> createGroupOfMonsters(std::vector<std::shared_ptr<Monster>> &monsters) {
+    return std::make_shared<GroupOfMonsters>(monsters);
 }

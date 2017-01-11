@@ -9,55 +9,63 @@
 class Monster : public Living, public Attacking {
 public:
 
-    Monster();
+    virtual std::string getName() const = 0;
 
-    Monster(HealthPoints healthPoints, AttackPower attackPower);
+protected:
+
+    Monster(const HealthPoints, const AttackPower);
 };
 
 class Zombie : public Monster {
 public:
 
-    Zombie(HealthPoints healthPoints, AttackPower attackPower);
+    Zombie(const HealthPoints, const AttackPower);
+
+    std::string getName() const;
 };
 
 class Vampire : public Monster {
 public:
 
-    Vampire(HealthPoints healthPoints, AttackPower attackPower);
+    Vampire(const HealthPoints, const AttackPower);
+
+    std::string getName() const;
 };
 
 class Mummy : public Monster {
 public:
 
-    Mummy(HealthPoints healthPoints, AttackPower attackPower);
+    Mummy(const HealthPoints, const AttackPower);
+
+    std::string getName() const;
 };
 
 class GroupOfMonsters : public Monster {
-    std::vector<Monster> monsters_;
+    std::vector<std::shared_ptr<Monster>> monsters_;
 
 public:
 
-    GroupOfMonsters(std::vector<Monster> monsters);
+    GroupOfMonsters(const std::vector<std::shared_ptr<Monster>> &monsters);
 
-    GroupOfMonsters(std::initializer_list<Monster> monsters);
-
-    bool isAlive();
+    GroupOfMonsters(const std::initializer_list<std::shared_ptr<Monster>> &monsters);
 
     HealthPoints getHealth();
 
     AttackPower getAttackPower();
 
     void takeDamage(AttackPower damage);
+
+    std::string getName() const;
 };
 
-Zombie createZombie(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Zombie> createZombie(HealthPoints health, AttackPower attackPower);
 
-Vampire createVampire(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Vampire> createVampire(HealthPoints health, AttackPower attackPower);
 
-Mummy createMummy(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Mummy> createMummy(HealthPoints health, AttackPower attackPower);
 
-GroupOfMonsters createGroupOfMonsters(std::vector<Monster> monsters);
+std::shared_ptr<GroupOfMonsters> createGroupOfMonsters(std::vector<std::shared_ptr<Monster>> &monsters);
 
-GroupOfMonsters createGroupOfMonsters(std::initializer_list<Monster> monsters);
+std::shared_ptr<GroupOfMonsters> createGroupOfMonsters(std::initializer_list<std::shared_ptr<Monster>> monsters);
 
 #endif //HORROR_MONSTER_H

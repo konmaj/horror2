@@ -3,15 +3,15 @@
 #define HORROR_CITIZEN_H
 
 #include <cstdint>
-#include "monster.h"
 #include "helper.h"
+#include "monster.h"
 
 class Citizen : public Living {
 public:
 
     Citizen(HealthPoints healthPoints, Age age);
 
-    virtual void attackedBy(Monster *monster);
+    virtual void attackedBy(std::shared_ptr<Monster> &monster);
 
     Age getAge() const;
 
@@ -37,13 +37,13 @@ public:
 
     Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
 
-    void attackedBy(Monster *monster);
+    void attackedBy(std::shared_ptr<Monster> &monster);
 };
 
-Adult createAdult(HealthPoints healthPoints, Age age);
+std::shared_ptr<Adult> createAdult(HealthPoints healthPoints, Age age);
 
-Teenager createTeenager(HealthPoints healthPoints, Age age);
+std::shared_ptr<Teenager> createTeenager(HealthPoints healthPoints, Age age);
 
-Sheriff createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
+std::shared_ptr<Sheriff> createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
 
 #endif //HORROR_CITIZEN_H

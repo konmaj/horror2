@@ -5,7 +5,7 @@
 Citizen::Citizen(HealthPoints healthPoints, Age age)
         : Living(healthPoints), age_(age) {}
 
-void Citizen::attackedBy(Monster *monster) {
+void Citizen::attackedBy(std::shared_ptr<Monster> &monster) {
     takeDamage(monster->getAttackPower());
 }
 
@@ -26,20 +26,20 @@ Teenager::Teenager(HealthPoints healthPoints, Age age)
 Sheriff::Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower)
         : Citizen(healthPoints, age), Attacking(attackPower) {}
 
-void Sheriff::attackedBy(Monster *monster) {
+void Sheriff::attackedBy(std::shared_ptr<Monster> &monster) {
     if (isAlive())
         monster->takeDamage(getAttackPower());
     takeDamage(monster->getAttackPower());
 }
 
-Adult createAdult(HealthPoints healthPoints, Age age) {
-    return Adult(healthPoints, age);
+std::shared_ptr<Adult> createAdult(HealthPoints healthPoints, Age age) {
+    return std::make_shared<Adult>(healthPoints, age);
 }
 
-Teenager createTeenager(HealthPoints healthPoints, Age age) {
-    return Teenager(healthPoints, age);
+std::shared_ptr<Teenager> createTeenager(HealthPoints healthPoints, Age age) {
+    return std::make_shared<Teenager>(healthPoints, age);
 }
 
-Sheriff createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower) {
-    return Sheriff(healthPoints, age, attackPower);
+std::shared_ptr<Sheriff> createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower) {
+    return std::make_shared<Sheriff>(healthPoints, age, attackPower);
 }

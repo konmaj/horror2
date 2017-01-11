@@ -9,16 +9,18 @@
 #include "monster.h"
 #include "helper.h"
 
-class GroupOfCitizens {
+class GroupOfCitizens : public Citizen {
 public:
 
-    GroupOfCitizens(std::vector<Citizen> citizens);
+    GroupOfCitizens(std::vector<std::shared_ptr<Citizen>> &citizens);
 
     HealthPoints getHealth();
 
-    void fight(Monster monster);
+    void attackedBy(std::shared_ptr<Monster> &monster);
 
-    std::vector<Citizen> citizens;
+private:
+
+    std::vector<std::shared_ptr<Citizen>> &citizens;
 };
 
 class AttackTime {
@@ -32,20 +34,21 @@ public:
 
     class Builder;
 
-    std::tuple<std::string, HealthPoints, size_t> getStatus();
+    class Status;
+
+    Status getStatus();
 
     void tick(Time timeStep);
 
 private:
 
-    Monster monster_;
-    GroupOfCitizens citizens_;
+    std::shared_ptr<Monster> &monster_;
+    std::shared_ptr<GroupOfCitizens> &citizens_;
     Time time_;
     Time max_time_;
     AttackTime attack_time_;
 
-    SmallTown(Monster m, GroupOfCitizens c, Time t, Time mt, AttackTime at) : monster_(m), citizens_(c), time_(t),
-                                                                              max_time_(mt), attack_time_(at) {}
+    SmallTown(std::shared_ptr<Monster> &m, std::shared_ptr<GroupOfCitizens> &c, Time t, Time mt, AttackTime at);
 
     void checkState();
 };
@@ -53,34 +56,43 @@ private:
 class SmallTown::Builder {
 public:
 
-    Monster default_monster = Monster(0, 0);
-    std::vector<Citizen> default_citizens;
-    Time default_time = 0;
-    Time default_max_time = 0;
+    Builder &monster(const std::shared_ptr<Monster> &monster);
 
-    Builder();
+    Builder &citizen(const std::shared_ptr<Citizen> &citizen);
 
-    Builder &monster(Monster monster);
+    Builder &startTime(const Time time);
 
-    Builder &citizens(std::vector<Citizen> citizens);
+    Builder &maxTime(const Time time);
 
-    Builder &citizen(Citizen citizen);
-
-    Builder &startTime(Time time);
-
-    Builder &maxTime(Time time);
-
-    Builder &attackTime(AttackTime attackTime);
+    Builder &attackTime(const AttackTime attackTime);
 
     SmallTown build();
 
 private:
 
-    Monster monster_;
-    std::vector<Citizen> citizens_;
+    std::shared_ptr<Monster> monster_;
+    std::vector<std::shared_ptr<Citizen>> citizens_;
     Time start_time_;
     Time max_time_;
     AttackTime attack_time_;
+};
+
+class SmallTown::Status {
+public:
+
+    Status(const std::string& monsterName, const HealthPoints& healthPoints, const size_t& aliveCount);
+
+    std::string getMonsterName() const;
+
+    HealthPoints getMonsterHealth() const;
+
+    size_t getAliveCitizens() const;
+
+private:
+
+    std::string monsterName_;
+    HealthPoints monsterHealth_;
+    size_t aliveCount_;
 };
 
 #endif //HORROR_SMALLTOWN_H

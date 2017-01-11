@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <cstddef>
+#include <memory>
 #include <vector>
 
 using Age = int32_t;
@@ -22,7 +23,7 @@ public:
 
     void takeDamage(AttackPower damage);
 
-private:
+protected:
 
     HealthPoints healthPoints_;
 };
@@ -34,7 +35,7 @@ public:
 
     AttackPower getAttackPower();
 
-private:
+protected:
 
     AttackPower attackPower_;
 };
