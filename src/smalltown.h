@@ -21,6 +21,8 @@ public:
 };
 
 class CustomAttackTime : public AttackTime {
+public:
+
     bool shouldAttack(Time time) const override;
 };
 
@@ -37,15 +39,15 @@ public:
 
 private:
 
-    SmallTown(const std::shared_ptr<MonsterComponent>& monster,
-              const std::vector<std::shared_ptr<Citizen>>& citizens,
+    SmallTown(const std::shared_ptr<MonsterComponent> &monster,
+              const std::vector<std::shared_ptr<Citizen>> &citizens,
               Time startTime,
               Time maxTime,
-              const std::shared_ptr<AttackTime>& attackTime);
+              const std::shared_ptr<AttackTime> &attackTime);
 
     void checkState() const;
 
-    size_t countAlives() const;
+    size_t countAliveCitizens() const;
 
     std::shared_ptr<MonsterComponent> monster_;
     std::vector<std::shared_ptr<Citizen>> citizens_;
@@ -59,15 +61,15 @@ public:
 
     Builder();
 
-    Builder& monster(const std::shared_ptr<MonsterComponent>& monster);
+    Builder &monster(const std::shared_ptr<MonsterComponent> &monster);
 
-    Builder& citizen(const std::shared_ptr<Citizen>& citizen);
+    Builder &citizen(const std::shared_ptr<Citizen> &citizen);
 
-    Builder& startTime(Time time);
+    Builder &startTime(Time time);
 
-    Builder& maxTime(Time time);
+    Builder &maxTime(Time time);
 
-    Builder& attackTime(const std::shared_ptr<AttackTime>& attackTime);
+    Builder &attackTime(const std::shared_ptr<AttackTime> &attackTime);
 
     SmallTown build();
 
@@ -84,8 +86,7 @@ private:
 class SmallTown::Status {
 public:
 
-    Status(const std::string& monsterName, HealthPoints monsterHealth, 
-           size_t aliveCount);
+    Status(const std::string &monsterName, HealthPoints monsterHealth, size_t aliveCount);
 
     std::string getMonsterName() const;
 
@@ -100,10 +101,8 @@ private:
     size_t aliveCount_;
 };
 
-void attack(const std::shared_ptr<MonsterComponent>& monster,
-            const std::shared_ptr<Citizen>& citizen);
+void attack(const std::shared_ptr<MonsterComponent> &monster, const std::shared_ptr<Citizen> &citizen);
 
-void attack(const std::shared_ptr<MonsterComponent>& monster,
-            const std::shared_ptr<Sheriff>& sheriff);
+void attack(const std::shared_ptr<MonsterComponent> &monster, const std::shared_ptr<Sheriff> &sheriff);
 
 #endif //HORROR_SMALLTOWN_H

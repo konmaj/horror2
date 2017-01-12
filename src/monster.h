@@ -8,8 +8,7 @@
 #include <vector>
 #include "helper.h"
 
-class MonsterComponent : public virtual LivingInterface, 
-                         public virtual AttackingInterface {
+class MonsterComponent : public virtual LivingInterface, public virtual AttackingInterface {
 public:
 
     virtual std::string getName() const = 0;
@@ -48,7 +47,7 @@ public:
 class GroupOfMonsters : public MonsterComponent {
 public:
 
-    GroupOfMonsters(const std::vector<std::shared_ptr<Monster>>& monsters);
+    GroupOfMonsters(const std::vector<std::shared_ptr<Monster>> &monsters);
 
     GroupOfMonsters(std::initializer_list<std::shared_ptr<Monster>> monsters);
 
@@ -65,19 +64,14 @@ private:
     std::vector<std::shared_ptr<Monster>> monsters_;
 };
 
-std::shared_ptr<Zombie>
-createZombie(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Zombie> createZombie(HealthPoints health, AttackPower attackPower);
 
-std::shared_ptr<Vampire>
-createVampire(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Vampire> createVampire(HealthPoints health, AttackPower attackPower);
 
-std::shared_ptr<Mummy>
-createMummy(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Mummy> createMummy(HealthPoints health, AttackPower attackPower);
 
-std::shared_ptr<GroupOfMonsters>
-createGroupOfMonsters(const std::vector<std::shared_ptr<Monster>>& monsters);
+std::shared_ptr<GroupOfMonsters> createGroupOfMonsters(const std::vector<std::shared_ptr<Monster>> &monsters);
 
-std::shared_ptr<GroupOfMonsters>
-createGroupOfMonsters(std::initializer_list<std::shared_ptr<Monster>> monsters);
+std::shared_ptr<GroupOfMonsters> createGroupOfMonsters(std::initializer_list<std::shared_ptr<Monster>> monsters);
 
 #endif //HORROR_MONSTER_H

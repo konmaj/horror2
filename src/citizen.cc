@@ -2,8 +2,7 @@
 #include <cassert>
 #include "citizen.h"
 
-Citizen::Citizen(HealthPoints healthPoints, Age age)
-        : LivingOne(healthPoints), age_(age) {
+Citizen::Citizen(HealthPoints healthPoints, Age age) : LivingOne(healthPoints), age_(age) {
     assert(age >= 0);
 }
 
@@ -11,24 +10,22 @@ Age Citizen::getAge() const {
     return age_;
 }
 
-void Citizen::beAttacked(const std::shared_ptr<MonsterComponent>& monster) {
+void Citizen::beAttacked(const std::shared_ptr<MonsterComponent> &monster) {
     takeDamage(monster->getAttackPower());
 }
 
-Adult::Adult(HealthPoints healthPoints, Age age)
-        : Citizen(healthPoints, age) {
+Adult::Adult(HealthPoints healthPoints, Age age) : Citizen(healthPoints, age) {
     assert(18 <= age && age <= 100);
 }
 
-Teenager::Teenager(HealthPoints healthPoints, Age age)
-        : Citizen(healthPoints, age) {
+Teenager::Teenager(HealthPoints healthPoints, Age age) : Citizen(healthPoints, age) {
     assert(11 <= age && age <= 17);
 }
 
-Sheriff::Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower)
-        : Adult(healthPoints, age), AttackingOne(attackPower) {}
+Sheriff::Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower) : Adult(healthPoints, age),
+                                                                                AttackingOne(attackPower) {}
 
-void Sheriff::beAttacked(const std::shared_ptr<MonsterComponent>& monster) {
+void Sheriff::beAttacked(const std::shared_ptr<MonsterComponent> &monster) {
     takeDamage(monster->getAttackPower());
     monster->takeDamage(getAttackPower());
 }
