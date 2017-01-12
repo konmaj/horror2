@@ -25,29 +25,36 @@ std::string Mummy::getName() const {
     return "Mummy";
 }
 
-GroupOfMonsters::GroupOfMonsters(const std::vector<std::shared_ptr<Monster>>& monsters) : monsters_(monsters) {}
+GroupOfMonsters::GroupOfMonsters(
+    const std::vector<std::shared_ptr<Monster>>& monsters)
+        : monsters_(monsters) {}
 
-GroupOfMonsters::GroupOfMonsters(std::initializer_list<std::shared_ptr<Monster>> monsters) : monsters_(monsters) {}
+GroupOfMonsters::GroupOfMonsters(
+    std::initializer_list<std::shared_ptr<Monster>> monsters)
+        : monsters_(monsters) {}
 
 HealthPoints GroupOfMonsters::getHealth() const {
     HealthPoints health = 0;
-    for (auto& monster : monsters_)
+    for (auto& monster : monsters_) {
         health += monster->getHealth();
+    }
     return health;
 }
 
 AttackPower GroupOfMonsters::getAttackPower()  const {
     AttackPower power = 0;
     for (auto& monster : monsters_) {
-        if (monster->getHealth() > 0)
+        if (monster->getHealth() > 0) {
             power += monster->getAttackPower();
+        }
     }
     return power;
 }
 
 void GroupOfMonsters::takeDamage(AttackPower damage) {
-    for (auto& monster : monsters_)
+    for (auto& monster : monsters_) {
         monster->takeDamage(damage);
+    }
 }
 
 std::string GroupOfMonsters::getName() const {
@@ -70,7 +77,7 @@ createMummy(HealthPoints health, AttackPower attackPower) {
 }
 
 std::shared_ptr<GroupOfMonsters>
-createGroupOfMonsters(const std::vector<std::shared_ptr<Monster>> &monsters) {
+createGroupOfMonsters(const std::vector<std::shared_ptr<Monster>>& monsters) {
     return std::make_shared<GroupOfMonsters>(monsters);
 }
 
@@ -78,4 +85,3 @@ std::shared_ptr<GroupOfMonsters>
 createGroupOfMonsters(std::initializer_list<std::shared_ptr<Monster>> monsters) {
     return std::make_shared<GroupOfMonsters>(monsters);
 }
-

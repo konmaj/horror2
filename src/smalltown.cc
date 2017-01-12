@@ -68,13 +68,12 @@ size_t SmallTown::Status::getAliveCitizens() const {
 }
 
 SmallTown::Status SmallTown::getStatus() const {
-    return Status(monster_->getName(), monster_->getHealth(), aliveCounter_);
+    return Status(monster_->getName(), monster_->getHealth(), countAlives());
 }
 
 void SmallTown::tick(Time timeStep) {
     checkState();
     if (attackTime_->shouldAttack(time_)) {
-        std::cout << "Atak\n";
         for (auto& citizen : citizens_) {
             attack(monster_, citizen);
         }
@@ -82,9 +81,9 @@ void SmallTown::tick(Time timeStep) {
     time_ = (time_ + timeStep) % (maxTime_ + 1);
 }
 
-void SmallTown::checkState() {
+void SmallTown::checkState() const {
     bool monsterAlive = monster_->getHealth() > 0;
-    bool citizensAlive = aliveCounter_ > 0;
+    bool citizensAlive = countAlives() > 0;
     if (monsterAlive && citizensAlive)
         return;
     if (monsterAlive) {
@@ -98,18 +97,27 @@ void SmallTown::checkState() {
     std::cout << DRAW << std::endl;
 }
 
-void attack(const std::shared_ptr<MonsterComponent>& monster,
-            const std::shared_ptr<Citizen>& citizen) {
-    if (monster->getHealth() > 0) {
-        citizen->takeDamage(monster->getAttackPower());
+size_t SmallTown::countAlives() const {
+    size_t counter = 0;
+    for (auto& citizen : citizens_) {
+        if (citizen->getHealth() > 0) {
+            counter++;
+        }
     }
+    return counter;
 }
 
+SmallTown::SmallTown(const std::shared_ptr<MonsterComponent>& monster,
+                     const std::vector<std::shared_ptr<Citizen>>& citizens,
+                     Time startTime,
+                     Time maxTime,
+                     const std::shared_ptr<AttackTime>& attackTime)
+            : monster_(monster), citizens_(citizens), time_(startTime), 
+              maxTime_(maxTime), attackTime_(attackTime) {}
+
 void attack(const std::shared_ptr<MonsterComponent>& monster,
-            const std::shared_ptr<Sheriff>& sheriff) {
-    std::cout << "Hurra!\n";
-    if (monster->getHealth() > 0 && sheriff->getHealth() > 0) {
-        sheriff->takeDamage(monster->getAttackPower());
-        monster->takeDamage(sheriff->getAttackPower());
+            const std::shared_ptr<Citizen>& citizen) {
+    if (monster->getHealth() > 0 && citizen->getHealth() > 0) {
+        citizen->beAttacked(monster);
     }
 }

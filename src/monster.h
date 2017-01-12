@@ -19,10 +19,6 @@ class Monster : public MonsterComponent, public LivingOne, public AttackingOne {
 public:
 
     Monster(HealthPoints healthPoints, AttackPower attackPower);
-
-    std::string getName() const override {
-        return "Monster";
-    }
 };
 
 class Zombie : public Monster {
@@ -79,7 +75,7 @@ std::shared_ptr<Mummy>
 createMummy(HealthPoints health, AttackPower attackPower);
 
 std::shared_ptr<GroupOfMonsters>
-createGroupOfMonsters(const std::vector<std::shared_ptr<Monster>> &monsters);
+createGroupOfMonsters(const std::vector<std::shared_ptr<Monster>>& monsters);
 
 std::shared_ptr<GroupOfMonsters>
 createGroupOfMonsters(std::initializer_list<std::shared_ptr<Monster>> monsters);

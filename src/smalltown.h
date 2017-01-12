@@ -4,8 +4,9 @@
 
 #include <cstdint>
 #include <iostream>
+#include <memory>
 #include <set>
-#include <tuple>
+#include <vector>
 #include "citizen.h"
 #include "monster.h"
 #include "helper.h"
@@ -39,14 +40,14 @@ private:
               const std::vector<std::shared_ptr<Citizen>>& citizens,
               Time startTime,
               Time maxTime,
-              const std::shared_ptr<AttackTime>& attackTime)
-            : monster_(monster), citizens_(citizens), time_(startTime), maxTime_(maxTime), attackTime_(attackTime) {}
+              const std::shared_ptr<AttackTime>& attackTime);
 
-    void checkState();
+    void checkState() const;
+
+    size_t countAlives() const;
 
     std::shared_ptr<MonsterComponent> monster_;
     std::vector<std::shared_ptr<Citizen>> citizens_;
-    size_t aliveCounter_;
     Time time_;
     Time maxTime_;
     std::shared_ptr<AttackTime> attackTime_;

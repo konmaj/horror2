@@ -2,9 +2,9 @@
 #ifndef HORROR_CITIZEN_H
 #define HORROR_CITIZEN_H
 
-#include <cstdint>
 #include <memory>
 #include "helper.h"
+#include "monster.h"
 
 class Citizen : public LivingOne {
 public:
@@ -12,6 +12,8 @@ public:
     Citizen(HealthPoints healthPoints, Age age);
 
     Age getAge() const;
+    
+    virtual void beAttacked(const std::shared_ptr<MonsterComponent>& monster);
 
     virtual ~Citizen() {}
 
@@ -38,6 +40,8 @@ class Sheriff : public Adult, public AttackingOne {
 public:
 
     Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
+
+    void beAttacked(const std::shared_ptr<MonsterComponent>& monster) override;
 };
 
 std::shared_ptr<Adult> createAdult(HealthPoints healthPoints, Age age);
