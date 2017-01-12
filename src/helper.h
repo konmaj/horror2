@@ -9,7 +9,6 @@
 using Age = int32_t;
 using HealthPoints = int32_t;
 using AttackPower = int32_t;
-using Time = int32_t;
 
 class LivingInterface {
 public:

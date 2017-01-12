@@ -9,7 +9,8 @@
 #include <vector>
 #include "citizen.h"
 #include "monster.h"
-#include "helper.h"
+
+using Time = int32_t;
 
 class AttackTime {
 public:
