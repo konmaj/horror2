@@ -3,6 +3,7 @@
 #define HORROR_CITIZEN_H
 
 #include <cstdint>
+#include <memory>
 #include "helper.h"
 
 class Citizen : public LivingOne {
@@ -35,10 +36,10 @@ public:
     Sheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
 };
 
-Adult createAdult(HealthPoints healthPoints, Age age);
+std::shared_ptr<Citizen> createAdult(HealthPoints healthPoints, Age age);
 
-Teenager createTeenager(HealthPoints healthPoints, Age age);
+std::shared_ptr<Teenager> createTeenager(HealthPoints healthPoints, Age age);
 
-Sheriff createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
+std::shared_ptr<Citizen> createSheriff(HealthPoints healthPoints, Age age, AttackPower attackPower);
 
 #endif //HORROR_CITIZEN_H

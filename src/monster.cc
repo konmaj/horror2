@@ -1,8 +1,6 @@
 ﻿// Konrad Majewski, Mateusz Warzyński
 #include "monster.h"
 
-Monster::Monster() : LivingOne(0), AttackingOne(0) {}
-
 Monster::Monster(HealthPoints healthPoints, AttackPower attackPower)
         : LivingOne(healthPoints), AttackingOne(attackPower) {}
 

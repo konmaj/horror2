@@ -3,7 +3,9 @@
 #include "citizen.h"
 
 Citizen::Citizen(HealthPoints healthPoints, Age age)
-        : LivingOne(healthPoints), age_(age) {}
+        : LivingOne(healthPoints), age_(age) {
+    assert(age >= 0);
+}
 
 Age Citizen::getAge() const {
     return age_;

@@ -26,7 +26,11 @@ public:
 class AttackTime {
 public:
 
-    static bool shouldAttack(Time time);
+    virtual bool shouldAttack(Time time) = 0;
+};
+
+class CustomAttackTime : public AttackTime {
+    bool shouldAttack(Time time);
 };
 
 class SmallTown {
@@ -34,35 +38,32 @@ public:
 
     class Builder;
 
-    std::tuple<std::string, HealthPoints, size_t> getStatus();
+    class Status;
+
+    Status getStatus();
 
     void tick(Time timeStep);
 
 private:
 
-    Monster monster_;
-    GroupOfCitizens citizens_;
-    Time time_;
-    Time max_time_;
-    AttackTime attack_time_;
-
-    SmallTown(Monster m, GroupOfCitizens c, Time t, Time mt, AttackTime at) : monster_(m), citizens_(c), time_(t),
-                                                                              max_time_(mt), attack_time_(at) {}
+    SmallTown(const Monster& monster, const GroupOfCitizens& groupOfCitizens, Time start, Time mt, AttackTime at) : 
+        monster_(m), citizens_(c), time_(t), max_time_(mt), attack_time_(at) {}
 
     void checkState();
+
+    MonsterComponent monster_;
+    GroupOfCitizens citizens_;
+    Time time_;
+    Time maxTime_;
+    AttackTime attackTime_;
 };
 
 class SmallTown::Builder {
 public:
 
-    Monster default_monster = Monster(0, 0);
-    std::vector<Citizen> default_citizens;
-    Time default_time = 0;
-    Time default_max_time = 0;
-
     Builder();
 
-    Builder &monster(Monster monster);
+    Builder &monster(MonsterComponent monster);
 
     Builder &citizens(std::vector<Citizen> citizens);
 
@@ -78,11 +79,34 @@ public:
 
 private:
 
-    Monster monster_;
+    MonsterComponent monster_;
     std::vector<Citizen> citizens_;
-    Time start_time_;
-    Time max_time_;
-    AttackTime attack_time_;
+    Time startTime_;
+    Time maxTime_;
+    AttackTime attackTime_;
 };
+
+class SmallTown::Status {
+public:
+
+    Status(const std::string& monsterName, HealthPoints monsterHealth, 
+           size_t aliveCount);
+
+    std::string getMonsterName() const;
+
+    HealthPoints getMonsterHealth() const;
+
+    size_t getAliveCitizens() const;
+
+private:
+
+    std::string monsterName_;
+    HealthPoints monsterHealth_;
+    size_t aliveCount_;
+};
+
+void attack(MonsterComponent& monster, Citizen& citizen);
+
+void attack(MonsterComponent& monster, Sheriff& sheriff);
 
 #endif //HORROR_SMALLTOWN_H

@@ -17,8 +17,6 @@ public:
 class Monster : public MonsterComponent, public LivingOne, public AttackingOne {
 public:
 
-    Monster();
-
     Monster(HealthPoints healthPoints, AttackPower attackPower);
 
     std::string getName() const override {
@@ -53,7 +51,7 @@ public:
 class GroupOfMonsters : public MonsterComponent {
 public:
 
-    GroupOfMonsters(std::vector<Monster> monsters);
+    GroupOfMonsters(const std::vector<Monster>& monsters);
 
     GroupOfMonsters(std::initializer_list<Monster> monsters);
 
@@ -76,7 +74,7 @@ Vampire createVampire(HealthPoints health, AttackPower attackPower);
 
 Mummy createMummy(HealthPoints health, AttackPower attackPower);
 
-GroupOfMonsters createGroupOfMonsters(std::vector<Monster> monsters);
+GroupOfMonsters createGroupOfMonsters(const std::vector<Monster>& monsters);
 
 GroupOfMonsters createGroupOfMonsters(std::initializer_list<Monster> monsters);
 

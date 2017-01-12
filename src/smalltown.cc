@@ -27,7 +27,7 @@ void GroupOfCitizens::takeDamage(AttackPower damage) {
         c.takeDamage(damage);
 }
 
-bool AttackTime::shouldAttack(Time time) {
+bool CustomAttackTime::shouldAttack(Time time) {
     return (time % 3 == 0 || time % 13 == 0) && time % 7 != 0;
 }
 
@@ -68,18 +68,37 @@ SmallTown::Builder &SmallTown::Builder::attackTime(AttackTime attack_time) {
     return *this;
 }
 
-std::tuple<std::string, HealthPoints, size_t> SmallTown::getStatus() {
-    // TODO: implement SmallTown::getStatus()
-    return std::make_tuple("", 0, 0);
+SmallTown::Status::Status(const std::string &monsterName, 
+                          HealthPoints monsterHealth,
+                          size_t aliveCount)
+        : monsterName_(monsterName), monsterHealth_(monsterHealth),
+          aliveCount_(aliveCount) {}
+
+std::string SmallTown::Status::getMonsterName() const {
+    return monsterName_;
+}
+
+HealthPoints SmallTown::Status::getMonsterHealth() const {
+    return monsterHealth_;
+}
+
+size_t SmallTown::Status::getAliveCitizens() const {
+    return aliveCount_;
+}
+
+SmallTown::Status SmallTown::getStatus() {
+    return Status(monster_->getName(), monster_->getHealth(),
+                  citizens_->countAlive());
 }
 
 void SmallTown::tick(Time timeStep) {
     checkState();
     if (AttackTime::shouldAttack(time_)) {
-        citizens_.takeDamage(monster_.getAttackPower());
-        monster_.takeDamage(citizens_.getAttackPower());
+        for (Citizen& citizen : citizens_) {
+            attack(monster_, citizen);
+        }
     }
-    time_ += timeStep;
+    time_ = (time_ + timeStep) % (maxTime_ + 1);
 }
 
 void SmallTown::checkState() {
@@ -96,4 +115,15 @@ void SmallTown::checkState() {
         return;
     }
     std::cout << DRAW << std::endl;
+}
+
+void attack(MonsterComponent& monster, Citizen& citizen) {
+    if (citizen.getHealth() > 0)
+    citizen.takeDamage(monster.getAttackPower());
+    
+}
+
+void attack(MonsterComponent& monster, Sheriff& sheriff) {
+    sheriff.takeDamage(monster.getAttackPower());
+    monster.takeDamge
 }
