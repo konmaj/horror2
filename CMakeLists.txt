@@ -17,3 +17,4 @@ set(SOURCE_FILES
 
 add_executable(example ./tests/example.cpp ${SOURCE_FILES})
 add_executable(test1 ./tests/test1.cpp ${SOURCE_FILES})
+add_executable(test2 ./tests/test2.cpp ${SOURCE_FILES})

@@ -2,35 +2,24 @@
 #ifndef HORROR_SMALLTOWN_H
 #define HORROR_SMALLTOWN_H
 
-#include <iostream>
 #include <cstdint>
+#include <iostream>
+#include <set>
 #include <tuple>
 #include "citizen.h"
 #include "monster.h"
 #include "helper.h"
 
-class GroupOfCitizens {
-public:
-
-    GroupOfCitizens(std::vector<Citizen> citizens);
-
-    HealthPoints getHealth();
-
-    AttackPower getAttackPower();
-
-    void takeDamage(AttackPower damage);
-
-    std::vector<Citizen> citizens;
-};
-
 class AttackTime {
 public:
 
-    virtual bool shouldAttack(Time time) = 0;
+    virtual bool shouldAttack(Time time) const = 0;
+
+    virtual ~AttackTime() {}
 };
 
 class CustomAttackTime : public AttackTime {
-    bool shouldAttack(Time time);
+    bool shouldAttack(Time time) const override;
 };
 
 class SmallTown {
@@ -40,22 +29,27 @@ public:
 
     class Status;
 
-    Status getStatus();
+    Status getStatus() const;
 
     void tick(Time timeStep);
 
 private:
 
-    SmallTown(const Monster& monster, const GroupOfCitizens& groupOfCitizens, Time start, Time mt, AttackTime at) : 
-        monster_(m), citizens_(c), time_(t), max_time_(mt), attack_time_(at) {}
+    SmallTown(const std::shared_ptr<MonsterComponent>& monster,
+              const std::vector<std::shared_ptr<Citizen>>& citizens,
+              Time startTime,
+              Time maxTime,
+              const std::shared_ptr<AttackTime>& attackTime)
+            : monster_(monster), citizens_(citizens), time_(startTime), maxTime_(maxTime), attackTime_(attackTime) {}
 
     void checkState();
 
-    MonsterComponent monster_;
-    GroupOfCitizens citizens_;
+    std::shared_ptr<MonsterComponent> monster_;
+    std::vector<std::shared_ptr<Citizen>> citizens_;
+    size_t aliveCounter_;
     Time time_;
     Time maxTime_;
-    AttackTime attackTime_;
+    std::shared_ptr<AttackTime> attackTime_;
 };
 
 class SmallTown::Builder {
@@ -63,27 +57,26 @@ public:
 
     Builder();
 
-    Builder &monster(MonsterComponent monster);
+    Builder& monster(const std::shared_ptr<MonsterComponent>& monster);
 
-    Builder &citizens(std::vector<Citizen> citizens);
+    Builder& citizen(const std::shared_ptr<Citizen>& citizen);
 
-    Builder &citizen(Citizen citizen);
+    Builder& startTime(Time time);
 
-    Builder &startTime(Time time);
+    Builder& maxTime(Time time);
 
-    Builder &maxTime(Time time);
-
-    Builder &attackTime(AttackTime attackTime);
+    Builder& attackTime(const std::shared_ptr<AttackTime>& attackTime);
 
     SmallTown build();
 
 private:
 
-    MonsterComponent monster_;
-    std::vector<Citizen> citizens_;
+    std::set<std::shared_ptr<Citizen>> addedCitizens_;
+    std::shared_ptr<MonsterComponent> monster_;
+    std::vector<std::shared_ptr<Citizen>> citizens_;
     Time startTime_;
     Time maxTime_;
-    AttackTime attackTime_;
+    std::shared_ptr<AttackTime> attackTime_;
 };
 
 class SmallTown::Status {
@@ -105,8 +98,10 @@ private:
     size_t aliveCount_;
 };
 
-void attack(MonsterComponent& monster, Citizen& citizen);
+void attack(const std::shared_ptr<MonsterComponent>& monster,
+            const std::shared_ptr<Citizen>& citizen);
 
-void attack(MonsterComponent& monster, Sheriff& sheriff);
+void attack(const std::shared_ptr<MonsterComponent>& monster,
+            const std::shared_ptr<Sheriff>& sheriff);
 
 #endif //HORROR_SMALLTOWN_H

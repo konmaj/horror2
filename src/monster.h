@@ -2,8 +2,9 @@
 #ifndef HORROR_MONSTER_H
 #define HORROR_MONSTER_H
 
-#include <string>
 #include <initializer_list>
+#include <memory>
+#include <string>
 #include <vector>
 #include "helper.h"
 
@@ -51,9 +52,9 @@ public:
 class GroupOfMonsters : public MonsterComponent {
 public:
 
-    GroupOfMonsters(const std::vector<Monster>& monsters);
+    GroupOfMonsters(const std::vector<std::shared_ptr<Monster>>& monsters);
 
-    GroupOfMonsters(std::initializer_list<Monster> monsters);
+    GroupOfMonsters(std::initializer_list<std::shared_ptr<Monster>> monsters);
 
     HealthPoints getHealth() const override;
 
@@ -65,17 +66,22 @@ public:
 
 private:
 
-    std::vector<Monster> monsters_;
+    std::vector<std::shared_ptr<Monster>> monsters_;
 };
 
-Zombie createZombie(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Zombie>
+createZombie(HealthPoints health, AttackPower attackPower);
 
-Vampire createVampire(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Vampire>
+createVampire(HealthPoints health, AttackPower attackPower);
 
-Mummy createMummy(HealthPoints health, AttackPower attackPower);
+std::shared_ptr<Mummy>
+createMummy(HealthPoints health, AttackPower attackPower);
 
-GroupOfMonsters createGroupOfMonsters(const std::vector<Monster>& monsters);
+std::shared_ptr<GroupOfMonsters>
+createGroupOfMonsters(const std::vector<std::shared_ptr<Monster>> &monsters);
 
-GroupOfMonsters createGroupOfMonsters(std::initializer_list<Monster> monsters);
+std::shared_ptr<GroupOfMonsters>
+createGroupOfMonsters(std::initializer_list<std::shared_ptr<Monster>> monsters);
 
 #endif //HORROR_MONSTER_H

@@ -5,67 +5,48 @@ const std::string CITIZENS_WON = "CITIZENS WON";
 const std::string MONSTER_WON = "MONSTER WON";
 const std::string DRAW = "DRAW";
 
-GroupOfCitizens::GroupOfCitizens(std::vector<Citizen> citizens) : citizens(citizens) {}
-
-// TODO
-HealthPoints GroupOfCitizens::getHealth() {
-    return 0;
-}
-
-AttackPower GroupOfCitizens::getAttackPower() {
-    AttackPower power = 0;
-    for (auto &c : citizens) {
-        if (c.getHealth() > 0)
-            // TODO
-            power += 0; //c.getAttackPower();
-    }
-    return power;
-}
-
-void GroupOfCitizens::takeDamage(AttackPower damage) {
-    for (auto &c : citizens)
-        c.takeDamage(damage);
-}
-
-bool CustomAttackTime::shouldAttack(Time time) {
+bool CustomAttackTime::shouldAttack(Time time) const {
     return (time % 3 == 0 || time % 13 == 0) && time % 7 != 0;
 }
 
-SmallTown::Builder::Builder() : monster_(default_monster), citizens_(default_citizens), start_time_(default_time),
-                                max_time_(default_max_time) {}
-
-SmallTown SmallTown::Builder::build() {
-    return SmallTown(monster_, citizens_, start_time_, max_time_, attack_time_);
+SmallTown::Builder::Builder() {
+    attackTime_ = std::make_shared<CustomAttackTime>();
 }
 
-SmallTown::Builder &SmallTown::Builder::citizens(std::vector<Citizen> citizens) {
-    citizens_ = citizens;
-    return *this;
-}
-
-SmallTown::Builder &SmallTown::Builder::citizen(Citizen citizen) {
+SmallTown::Builder&
+SmallTown::Builder::citizen(const std::shared_ptr<Citizen>& citizen) {
+    if (addedCitizens_.find(citizen) != addedCitizens_.end()) {
+        return *this;
+    }
+    addedCitizens_.insert(citizen);
     citizens_.emplace_back(citizen);
     return *this;
 }
 
-SmallTown::Builder &SmallTown::Builder::monster(Monster monster) {
+SmallTown::Builder&
+SmallTown::Builder::monster(const std::shared_ptr<MonsterComponent>& monster) {
     monster_ = monster;
     return *this;
 }
 
-SmallTown::Builder &SmallTown::Builder::startTime(Time time) {
-    start_time_ = time;
+SmallTown::Builder& SmallTown::Builder::startTime(Time time) {
+    startTime_ = time;
     return *this;
 }
 
-SmallTown::Builder &SmallTown::Builder::maxTime(Time time) {
-    max_time_ = time;
+SmallTown::Builder& SmallTown::Builder::maxTime(Time time) {
+    maxTime_ = time;
     return *this;
 }
 
-SmallTown::Builder &SmallTown::Builder::attackTime(AttackTime attack_time) {
-    attack_time_ = attack_time;
+SmallTown::Builder&
+SmallTown::Builder::attackTime(const std::shared_ptr<AttackTime>& attackTime) {
+    attackTime_ = attackTime;
     return *this;
+}
+
+SmallTown SmallTown::Builder::build() {
+    return SmallTown(monster_, citizens_, startTime_, maxTime_, attackTime_);
 }
 
 SmallTown::Status::Status(const std::string &monsterName, 
@@ -86,15 +67,15 @@ size_t SmallTown::Status::getAliveCitizens() const {
     return aliveCount_;
 }
 
-SmallTown::Status SmallTown::getStatus() {
-    return Status(monster_->getName(), monster_->getHealth(),
-                  citizens_->countAlive());
+SmallTown::Status SmallTown::getStatus() const {
+    return Status(monster_->getName(), monster_->getHealth(), aliveCounter_);
 }
 
 void SmallTown::tick(Time timeStep) {
     checkState();
-    if (AttackTime::shouldAttack(time_)) {
-        for (Citizen& citizen : citizens_) {
+    if (attackTime_->shouldAttack(time_)) {
+        std::cout << "Atak\n";
+        for (auto& citizen : citizens_) {
             attack(monster_, citizen);
         }
     }
@@ -102,8 +83,8 @@ void SmallTown::tick(Time timeStep) {
 }
 
 void SmallTown::checkState() {
-    bool monsterAlive = monster_.getHealth() > 0;
-    bool citizensAlive = citizens_.getHealth() > 0;
+    bool monsterAlive = monster_->getHealth() > 0;
+    bool citizensAlive = aliveCounter_ > 0;
     if (monsterAlive && citizensAlive)
         return;
     if (monsterAlive) {
@@ -117,13 +98,18 @@ void SmallTown::checkState() {
     std::cout << DRAW << std::endl;
 }
 
-void attack(MonsterComponent& monster, Citizen& citizen) {
-    if (citizen.getHealth() > 0)
-    citizen.takeDamage(monster.getAttackPower());
-    
+void attack(const std::shared_ptr<MonsterComponent>& monster,
+            const std::shared_ptr<Citizen>& citizen) {
+    if (monster->getHealth() > 0) {
+        citizen->takeDamage(monster->getAttackPower());
+    }
 }
 
-void attack(MonsterComponent& monster, Sheriff& sheriff) {
-    sheriff.takeDamage(monster.getAttackPower());
-    monster.takeDamge
+void attack(const std::shared_ptr<MonsterComponent>& monster,
+            const std::shared_ptr<Sheriff>& sheriff) {
+    std::cout << "Hurra!\n";
+    if (monster->getHealth() > 0 && sheriff->getHealth() > 0) {
+        sheriff->takeDamage(monster->getAttackPower());
+        monster->takeDamage(sheriff->getAttackPower());
+    }
 }
